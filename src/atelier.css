@@ -1,0 +1,71 @@
+html[data-dragon-atelier] {
+  --da-bg: #1b1c23; --da-panel: #23242c; --da-alt: #2b2c35;
+  --da-text: #dedde6; --da-muted: #aaa8b8; --da-accent: #b4a6ce;
+  --da-line: #484651; --da-gold: #a89773;
+}
+html[data-dragon-atelier][data-da-mode=light] {
+  --da-bg: #e8e7ed; --da-panel: #f0eff3; --da-alt: #dedce5;
+  --da-text: #35333f; --da-muted: #625d70; --da-accent: #6f5888;
+  --da-line: #b7b0c4; --da-gold: #776346;
+}
+/* Palette is bound to stable semantic slots. Native fonts, geometry and status colors remain authoritative. */
+html[data-dragon-atelier] [data-da-part] {
+  --color-surface: var(--da-bg);
+  --color-surface-secondary: var(--da-panel);
+  --color-surface-tertiary: var(--da-alt);
+  --color-surface-elevated: var(--da-panel);
+  --color-surface-elevated-secondary: var(--da-alt);
+  --color-text: var(--da-text);
+  --color-text-primary: var(--da-text);
+  --color-text-secondary: var(--da-muted);
+  --color-text-tertiary:var(--da-muted);
+  --color-token-text-tertiary:var(--da-muted);
+  --color-token-bg-primary: var(--da-bg);
+  --color-token-text-primary: var(--da-text);
+  --color-token-text-secondary: var(--da-muted);
+  --app-color-background-surface: var(--da-bg);
+  --app-color-background-elevated-primary: var(--da-panel);
+  --app-color-background-editor-opaque: var(--da-panel);
+  --app-color-text-foreground: var(--da-text);
+  --app-color-text-foreground-secondary: var(--da-muted);
+}
+html[data-dragon-atelier] [data-da-part=main] {
+  background-color: var(--da-bg) !important;
+  background-image: radial-gradient(ellipse at 20% 95%, color-mix(in srgb,var(--da-accent) 5%,transparent),transparent 42%);
+}
+html[data-dragon-atelier] [data-da-part=sidebar] {
+  background-color:var(--da-bg) !important;
+  border-right-color:var(--da-line) !important;
+}
+html[data-dragon-atelier] [data-da-part=composer] {
+  background-color:var(--da-panel) !important;
+  border-radius:20px !important;
+  box-shadow:inset 0 0 0 1px var(--da-line),0 4px 18px rgb(0 0 0 / .08) !important;
+}
+html[data-dragon-atelier] [data-da-part=composer]:focus-within {box-shadow:inset 0 0 0 1px var(--da-accent),0 4px 18px rgb(0 0 0 / .08) !important;}
+html[data-dragon-atelier] [data-da-part=overlay] {background-color:var(--da-panel) !important;color:var(--da-text);}
+#dragon-atelier-scene {
+  position:fixed; inset:0; z-index:45; overflow:hidden; pointer-events:none !important;
+  contain:layout paint style; user-select:none;
+}
+#dragon-atelier-scene * {pointer-events:none !important;}
+#dragon-atelier-scene .da-dragon {
+  position:absolute;width:var(--da-character-width,200px);aspect-ratio:192/208;
+  background-repeat:no-repeat;background-size:100% 100%;
+  filter:brightness(.78) saturate(.72);opacity:.85;
+}
+html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.95) saturate(.74);opacity:.85;}
+#dragon-atelier-scene .da-right {transform:scaleX(-1);}
+#dragon-atelier-scene .da-ornament {
+  position:absolute;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.4;
+}
+#dragon-atelier-scene .da-ornament::after {
+  content:'';position:absolute;width:5px;height:5px;left:53px;top:-2px;
+  border:1px solid var(--da-gold);transform:rotate(45deg);background:var(--da-bg);
+}
+#dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.38;}
+#dragon-atelier-scene[data-da-hidden=true] {visibility:hidden;}
+@media (prefers-reduced-motion:reduce) {
+  #dragon-atelier-scene .da-dragon {background-size:800% 1100%;background-position:0 0;}
+}
+@media (forced-colors:active) {#dragon-atelier-scene {display:none;}}

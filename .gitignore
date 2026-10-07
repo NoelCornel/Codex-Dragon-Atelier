@@ -1,0 +1,16 @@
+evidence/
+TASK_PROGRESS.md
+.local-project.yaml
+node_modules/
+dist/
+__pycache__/
+*.log
+/scripts/inspect-*.py
+/scripts/native-*.py
+/scripts/live-*.py
+/scripts/live_helpers.py
+/scripts/repair-installed-payload.py
+/scripts/publish-local.py
+/scripts/qa-live.py
+/scripts/qa-thread.py
+/scripts/probe-publish.py

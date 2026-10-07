@@ -1,0 +1,178 @@
+diff --git a/windows/app/CodexDreamSkin.Manager/RuntimeProvisioner.cs b/windows/app/CodexDreamSkin.Manager/RuntimeProvisioner.cs
+--- a/windows/app/CodexDreamSkin.Manager/RuntimeProvisioner.cs
++++ b/windows/app/CodexDreamSkin.Manager/RuntimeProvisioner.cs
+@@ -10,20 +10,31 @@
+   private static readonly IReadOnlyDictionary<string, string> ResourceMap =
+     new Dictionary<string, string>(StringComparer.Ordinal)
+     {
++      ["Engine.VERSION"] = @"payload\VERSION",
+       ["Engine.assets.dream-reference.jpg"] = @"payload\assets\dream-reference.jpg",
+       ["Engine.assets.dream-skin.css"] = @"payload\assets\dream-skin.css",
+       ["Engine.assets.renderer-inject.js"] = @"payload\assets\renderer-inject.js",
++      ["Engine.assets.safe-css-policy.json"] = @"payload\assets\safe-css-policy.json",
++      ["Engine.assets.safe-css-validator.mjs"] = @"payload\assets\safe-css-validator.mjs",
++      ["Engine.assets.selectors.json"] = @"payload\assets\selectors.json",
++      ["Engine.assets.theme-package-validator.mjs"] = @"payload\assets\theme-package-validator.mjs",
+       ["Engine.assets.theme.json"] = @"payload\assets\theme.json",
++      ["Engine.presets.preset-gothic-void-crusade.background.jpg"] = @"payload\presets\preset-gothic-void-crusade\background.jpg",
++      ["Engine.presets.preset-gothic-void-crusade.theme.json"] = @"payload\presets\preset-gothic-void-crusade\theme.json",
++      ["Engine.scripts.apply-community-theme.ps1"] = @"payload\scripts\apply-community-theme.ps1",
++      ["Engine.scripts.check-update.ps1"] = @"payload\scripts\check-update.ps1",
+       ["Engine.scripts.common-windows.ps1"] = @"payload\scripts\common-windows.ps1",
+       ["Engine.scripts.config-utf8.ps1"] = @"payload\scripts\config-utf8.ps1",
+       ["Engine.scripts.image-metadata.mjs"] = @"payload\scripts\image-metadata.mjs",
+       ["Engine.scripts.injector.mjs"] = @"payload\scripts\injector.mjs",
+       ["Engine.scripts.install-dream-skin.ps1"] = @"payload\scripts\install-dream-skin.ps1",
++      ["Engine.scripts.localization-windows.ps1"] = @"payload\scripts\localization-windows.ps1",
+       ["Engine.scripts.manager-command.ps1"] = @"payload\scripts\manager-command.ps1",
+       ["Engine.scripts.restore-dream-skin.ps1"] = @"payload\scripts\restore-dream-skin.ps1",
+       ["Engine.scripts.start-dream-skin.ps1"] = @"payload\scripts\start-dream-skin.ps1",
+       ["Engine.scripts.theme-windows.ps1"] = @"payload\scripts\theme-windows.ps1",
+       ["Engine.scripts.tray-dream-skin.ps1"] = @"payload\scripts\tray-dream-skin.ps1",
++      ["Engine.scripts.validate-safe-css-file.mjs"] = @"payload\scripts\validate-safe-css-file.mjs",
+       ["Engine.scripts.verify-dream-skin.ps1"] = @"payload\scripts\verify-dream-skin.ps1",
+       ["Runtime.node.exe"] = @"node\node.exe",
+       ["Runtime.NODE-LICENSE.txt"] = @"node\NODE-LICENSE.txt",
+diff --git a/windows/app/CodexDreamSkin.Manager/CodexDreamSkin.Manager.csproj b/windows/app/CodexDreamSkin.Manager/CodexDreamSkin.Manager.csproj
+--- a/windows/app/CodexDreamSkin.Manager/CodexDreamSkin.Manager.csproj
++++ b/windows/app/CodexDreamSkin.Manager/CodexDreamSkin.Manager.csproj
+@@ -24,20 +24,31 @@
+   </PropertyGroup>
+ 
+   <ItemGroup>
++    <EmbeddedResource Include="..\..\VERSION" LogicalName="DreamSkin.Engine.VERSION" />
+     <EmbeddedResource Include="..\..\assets\dream-reference.jpg" LogicalName="DreamSkin.Engine.assets.dream-reference.jpg" />
+     <EmbeddedResource Include="..\..\assets\dream-skin.css" LogicalName="DreamSkin.Engine.assets.dream-skin.css" />
+     <EmbeddedResource Include="..\..\assets\renderer-inject.js" LogicalName="DreamSkin.Engine.assets.renderer-inject.js" />
++    <EmbeddedResource Include="..\..\assets\safe-css-policy.json" LogicalName="DreamSkin.Engine.assets.safe-css-policy.json" />
++    <EmbeddedResource Include="..\..\assets\safe-css-validator.mjs" LogicalName="DreamSkin.Engine.assets.safe-css-validator.mjs" />
++    <EmbeddedResource Include="..\..\assets\selectors.json" LogicalName="DreamSkin.Engine.assets.selectors.json" />
++    <EmbeddedResource Include="..\..\assets\theme-package-validator.mjs" LogicalName="DreamSkin.Engine.assets.theme-package-validator.mjs" />
+     <EmbeddedResource Include="..\..\assets\theme.json" LogicalName="DreamSkin.Engine.assets.theme.json" />
++    <EmbeddedResource Include="..\..\presets\preset-gothic-void-crusade\background.jpg" LogicalName="DreamSkin.Engine.presets.preset-gothic-void-crusade.background.jpg" />
++    <EmbeddedResource Include="..\..\presets\preset-gothic-void-crusade\theme.json" LogicalName="DreamSkin.Engine.presets.preset-gothic-void-crusade.theme.json" />
++    <EmbeddedResource Include="..\..\scripts\apply-community-theme.ps1" LogicalName="DreamSkin.Engine.scripts.apply-community-theme.ps1" />
++    <EmbeddedResource Include="..\..\scripts\check-update.ps1" LogicalName="DreamSkin.Engine.scripts.check-update.ps1" />
+     <EmbeddedResource Include="..\..\scripts\common-windows.ps1" LogicalName="DreamSkin.Engine.scripts.common-windows.ps1" />
+     <EmbeddedResource Include="..\..\scripts\config-utf8.ps1" LogicalName="DreamSkin.Engine.scripts.config-utf8.ps1" />
+     <EmbeddedResource Include="..\..\scripts\image-metadata.mjs" LogicalName="DreamSkin.Engine.scripts.image-metadata.mjs" />
+     <EmbeddedResource Include="..\..\scripts\injector.mjs" LogicalName="DreamSkin.Engine.scripts.injector.mjs" />
+     <EmbeddedResource Include="..\..\scripts\install-dream-skin.ps1" LogicalName="DreamSkin.Engine.scripts.install-dream-skin.ps1" />
++    <EmbeddedResource Include="..\..\scripts\localization-windows.ps1" LogicalName="DreamSkin.Engine.scripts.localization-windows.ps1" />
+     <EmbeddedResource Include="..\..\scripts\manager-command.ps1" LogicalName="DreamSkin.Engine.scripts.manager-command.ps1" />
+     <EmbeddedResource Include="..\..\scripts\restore-dream-skin.ps1" LogicalName="DreamSkin.Engine.scripts.restore-dream-skin.ps1" />
+     <EmbeddedResource Include="..\..\scripts\start-dream-skin.ps1" LogicalName="DreamSkin.Engine.scripts.start-dream-skin.ps1" />
+     <EmbeddedResource Include="..\..\scripts\theme-windows.ps1" LogicalName="DreamSkin.Engine.scripts.theme-windows.ps1" />
+     <EmbeddedResource Include="..\..\scripts\tray-dream-skin.ps1" LogicalName="DreamSkin.Engine.scripts.tray-dream-skin.ps1" />
++    <EmbeddedResource Include="..\..\scripts\validate-safe-css-file.mjs" LogicalName="DreamSkin.Engine.scripts.validate-safe-css-file.mjs" />
+     <EmbeddedResource Include="..\..\scripts\verify-dream-skin.ps1" LogicalName="DreamSkin.Engine.scripts.verify-dream-skin.ps1" />
+     <EmbeddedResource Include="$(NodeExe)" LogicalName="DreamSkin.Runtime.node.exe" Condition="Exists('$(NodeExe)')" />
+     <EmbeddedResource Include="$(NodeLicense)" LogicalName="DreamSkin.Runtime.NODE-LICENSE.txt" Condition="Exists('$(NodeLicense)')" />
+diff --git a/windows/tests/manager-payload-completeness.test.mjs b/windows/tests/manager-payload-completeness.test.mjs
+new file mode 100644
+--- /dev/null
++++ b/windows/tests/manager-payload-completeness.test.mjs
+@@ -0,0 +1,103 @@
++import assert from "node:assert/strict";
++import fs from "node:fs/promises";
++import os from "node:os";
++import path from "node:path";
++import { spawnSync } from "node:child_process";
++import test from "node:test";
++import { fileURLToPath, pathToFileURL } from "node:url";
++
++const platformRoot = fileURLToPath(new URL("../", import.meta.url));
++const managerRoot = path.join(platformRoot, "app", "CodexDreamSkin.Manager");
++const provisioner = await fs.readFile(path.join(managerRoot, "RuntimeProvisioner.cs"), "utf8");
++const project = await fs.readFile(path.join(managerRoot, "CodexDreamSkin.Manager.csproj"), "utf8");
++const normalize = (value) => value.replaceAll("\\", "/");
++const resourceMap = new Map([...provisioner.matchAll(/\["([^"]+)"\]\s*=\s*@"([^"]+)"/g)]
++  .map((match) => [`DreamSkin.${match[1]}`, normalize(match[2])]));
++const embedded = new Map([...project.matchAll(/<EmbeddedResource\s+Include="([^"]+)"\s+LogicalName="([^"]+)"/g)]
++  .map((match) => [match[2], match[1]]));
++const payloadPaths = new Set([...resourceMap.values()]
++  .filter((value) => value.startsWith("payload/"))
++  .map((value) => value.slice("payload/".length)));
++
++async function extractPayload(t) {
++  const root = await fs.mkdtemp(path.join(os.tmpdir(), "dreamskin-manager-payload-"));
++  t.after(() => fs.rm(root, { recursive: true, force: true }));
++  // Reconstruct only the EXE's declared resources; never borrow files from the
++  // source tree to satisfy a missing import in the extracted runtime.
++  for (const [logicalName, destination] of resourceMap) {
++    if (!destination.startsWith("payload/")) continue;
++    const include = embedded.get(logicalName);
++    assert.ok(include, `${logicalName} is mapped but not embedded`);
++    const source = path.resolve(managerRoot, normalize(include));
++    const target = path.join(root, destination.slice("payload/".length));
++    await fs.mkdir(path.dirname(target), { recursive: true });
++    await fs.copyFile(source, target);
++  }
++  return root;
++}
++
++test("Manager embedded resources and extraction map agree and source files are nonempty", async () => {
++  assert.ok(resourceMap.size > 0);
++  assert.equal(resourceMap.size, embedded.size);
++  assert.equal(new Set(resourceMap.values()).size, resourceMap.size, "destinations must be unique");
++  for (const [logicalName, include] of embedded) {
++    assert.ok(resourceMap.has(logicalName), `${logicalName} is embedded but never extracted`);
++    if (include.startsWith("$(")) continue; // Node paths are supplied by the publisher.
++    const info = await fs.stat(path.resolve(managerRoot, normalize(include)));
++    assert.ok(info.isFile() && info.size > 0, `${logicalName} has no usable source`);
++  }
++});
++
++test("Manager payload satisfies the installer's required runtime contract", async () => {
++  const common = await fs.readFile(path.join(platformRoot, "scripts", "common-windows.ps1"), "utf8");
++  const requiredBlock = common.match(/function Install-DreamSkinRuntimeEngine[\s\S]*?\$required = @\(([\s\S]*?)\n\s*\)/)?.[1];
++  assert.ok(requiredBlock, "could not locate the runtime installer contract");
++  const required = [...requiredBlock.matchAll(/'([^']+)'/g)].map((match) => normalize(match[1]));
++  assert.ok(required.length > 0);
++  const missing = required.filter((relative) => !payloadPaths.has(relative));
++  assert.deepEqual(missing, [], `Manager omits required runtime files: ${missing.join(", ")}`);
++});
++
++test("every relative static ESM import is reachable in the extracted payload", async () => {
++  const visited = new Set();
++  async function visit(relative) {
++    if (visited.has(relative)) return;
++    visited.add(relative);
++    assert.ok(payloadPaths.has(relative), `missing embedded ESM dependency: ${relative}`);
++    const source = await fs.readFile(path.join(platformRoot, relative), "utf8");
++    for (const match of source.matchAll(/\b(?:import|export)\s+(?:[^;]*?\s+from\s+)?["'](\.[^"']+)["']/g)) {
++      const dependency = path.posix.normalize(path.posix.join(path.posix.dirname(relative), match[1]));
++      await visit(dependency);
++    }
++  }
++  for (const relative of payloadPaths) {
++    if (relative.endsWith(".mjs")) await visit(relative);
++  }
++});
++
++test("PowerShell scripts can resolve their local dot-sourced dependencies", async () => {
++  for (const relative of payloadPaths) {
++    if (!relative.endsWith(".ps1")) continue;
++    const source = await fs.readFile(path.join(platformRoot, relative), "utf8");
++    for (const match of source.matchAll(/\.\s*\(Join-Path\s+\$PSScriptRoot\s+'([^']+)'\)/g)) {
++      const dependency = path.posix.join(path.posix.dirname(relative), normalize(match[1]));
++      assert.ok(payloadPaths.has(dependency), `${relative} cannot dot-source ${dependency}`);
++    }
++  }
++});
++
++test("isolated extracted injector imports and builds its default payload without CDP", async (t) => {
++  const root = await extractPayload(t);
++  const injectorUrl = pathToFileURL(path.join(root, "scripts", "injector.mjs")).href;
++  const probe = `const { loadPayload } = await import(${JSON.stringify(injectorUrl)});
++const result = await loadPayload();
++if (!result.payload || !result.theme?.id) throw new Error("default payload is empty");
++new Function(result.payload);
++console.log(JSON.stringify({ themeId: result.theme.id, payloadBytes: Buffer.byteLength(result.payload) }));`;
++  const result = spawnSync(process.execPath, ["--input-type=module", "--eval", probe], {
++    encoding: "utf8", timeout: 30_000, cwd: root,
++  });
++  assert.ifError(result.error);
++  assert.equal(result.status, 0, `extracted injector failed:\n${result.stderr}`);
++  assert.ok(JSON.parse(result.stdout.trim()).payloadBytes > 0);
++});

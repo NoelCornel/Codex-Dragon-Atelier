@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/fywdy/chatgpt-chibi-pets",
+  "commit": "d5bbb27c79e5c08e8b8ab44d4023cd35a67418e2",
+  "artist": "fywdy",
+  "originalCharacterDesigner": "ZipZipPipe",
+  "originalCharacterSource": "https://www.pixiv.net/artworks/148186519",
+  "license": "CC-BY-NC-4.0",
+  "originalCharacterConditions": "Attribution required; noncommercial only; see NOTICE.md",
+  "files": [
+    {
+      "file": "dragon-idle.webp",
+      "sourcePath": "chatgpt-white-dragon-chibi-v5/qa/previews/idle.webp",
+      "gitBlob": "2f81f5115304e3d2e3da2b511762258ee75a4087",
+      "sha256": "61df3baff454489dbdcf30e4e58220064c7309ca7a78ef1a82ce52c19c04caf3",
+      "bytes": 254818,
+      "modified": false
+    },
+    {
+      "file": "dragon-waving.webp",
+      "sourcePath": "chatgpt-white-dragon-chibi-v5/qa/previews/waving.webp",
+      "gitBlob": "e8fefb6e8801118d655313f1a258a2fab89aa099",
+      "sha256": "64a88dcbff7fd219d542c6b0f72592770c2173aca5dd9f4d4259de42bee6ff06",
+      "bytes": 176026,
+      "modified": false
+    },
+    {
+      "file": "dragon-spritesheet.webp",
+      "sourcePath": "chatgpt-white-dragon-chibi-v5/spritesheet.webp",
+      "gitBlob": "0d81395c8a5d127ffb1ff8f21a091d9679c8c0af",
+      "sha256": "6d7cd4d4a33f2babda645dc1cb8b6b719530029b511e126ac6611fa1142a718f",
+      "bytes": 3020366,
+      "modified": false
+    }
+  ]
+}
