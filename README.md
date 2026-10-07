@@ -2,7 +2,7 @@
 
 克制的明暗双主题，同一位 GPT 白发龙娘的双姿态作为聊天背景。灵感来自 DSH Maid Atelier 的底层舞台与双角色构图；这是独立的非官方主题项目。
 
-**v0.1.0-beta.2 本地候选版 · Windows Store Codex 26.1002.6548.0 实机验证。** 当前公开 Release 仍为 v0.1.0-beta.1；本分支的背景版尚未发布。原生配色通过官方导入，人物通过可恢复的本机 CDP 装饰。
+**v0.1.0-beta.2 · Windows Store Codex 26.1002.6548.0 实机验证。** [Windows 预发布下载](https://github.com/NoelCornel/Codex-Dragon-Atelier/releases/tag/v0.1.0-beta.2)。原生配色通过官方导入，人物通过可恢复的本机 CDP 装饰。
 
 | Q 版背景 | 正常立绘背景 |
 |---|---|
@@ -22,7 +22,7 @@ Q 版素材：fywdy，原设 ZipZipPipe。立绘左侧：ZipZipPipe，右侧：A
 ## 体验与恢复
 
 - 静态人物放在聊天主区域第一子节点、z-index:0，正文、输入区及原生菜单保留在前景；人物不可点击、不会生成桌面置顶覆盖窗。
-- Q 版采用原始图集两个不同静态姿态。立绘版使用两张现成正常比例图，一大一小；只做透明背景处理，不绑定模型名称。
+- Q 版采用原始图集两个不同静态姿态，限制放大尺寸。立绘版使用两张现成正常比例图，一大一小；只做透明背景处理，不绑定模型名称。
 - 会话页人物退让；聊天区域宽度小于 700px 或高度不大于 420px 时隐藏。设置页和系统高对比度模式不显示人物。
 - 保留原生明暗切换、字体、输入区尺寸及红绿语义颜色。所有人物均为静态，减少动态效果模式同样适用。
 - 双击「恢复装饰.cmd」结束本项目观察进程并移除本项目样式和人物。原生配色保留；恢复颜色需导入先前保存的分享码。
@@ -39,13 +39,13 @@ python tests/browser-regression.py
 node scripts/package.mjs
 ```
 
-模拟回归需要 Python Playwright 和 Chromium。实际客户端与模拟页面的检查分开记录，见 [验证记录](docs/VALIDATION.md)。构建产物在 `dist/`；包使用文件白名单，不含本机证据、账号配置或聊天内容。
+模拟回归需要 Python Playwright 和 Chromium。实际客户端与模拟页面的检查分开记录，见 [验证记录](docs/VALIDATION.md)。本版经过一次用户授权的 Opus 设计评审，采纳与约束的取舍见 [设计评审](docs/DESIGN_REVIEW.md)。构建产物在 `dist/`；包使用文件白名单，不含本机证据、账号配置或聊天内容。
 
 新版 Codex 保留不可见旧路由，适配器仅选择可见节点。缺失锚点或未来客户端采用不支持的主区域定位时关闭装饰。兼容版本在 `src/adapter.json`；其他版本、平台及跨更新迁移尚未验证。
 
 ## 分支、补丁与授权
 
-独立仓库：`main` 为首版公开基线，`theme/dragon-atelier` 为首版主题分支；当前本地背景改造在 `fix/background-stage-handoff`，未推送新 Release。
+独立仓库：`main` 为首版公开基线，`theme/dragon-atelier` 为首版主题分支；本版背景改造在 `fix/background-stage-handoff`。旧版 Release 保留，新增版本作为预发布提供。
 
 另附 Dynamic Skin Manager 1.6.2 的 [运行时资源打包修复补丁](patches/README.md)，未重编译管理器 EXE，未声称上游合入。
 

@@ -13,7 +13,7 @@ const files=['README.md','NOTICE.md','LICENSE','package.json',
  'assets/dragon-portrait-original.jpg','assets/dragon-portrait-orbit.png','assets/dragon-portrait-original-cutout.png','assets/dragon-portrait-orbit-cutout.png',
  'src/renderer.js','src/atelier.css','src/tokens.json','src/adapter.json',
  'tests/palette.test.mjs','tests/browser-regression.py',
- 'docs/DESIGN.md','docs/VALIDATION.md','docs/WINDOW_RECOVERY.md','docs/images/background-q-dark.png','docs/images/background-q-light.png','docs/images/background-portrait-dark.png','docs/images/background-portrait-light.png',
+ 'docs/DESIGN.md','docs/DESIGN_REVIEW.md','docs/RELEASE_NOTES.md','docs/VALIDATION.md','docs/WINDOW_RECOVERY.md','docs/images/background-q-dark.png','docs/images/background-q-light.png','docs/images/background-portrait-dark.png','docs/images/background-portrait-light.png',
  'LICENSES/Artwork-CC-BY-NC-4.0.txt','LICENSES/Upstream-Pets-NOTICE.md','LICENSES/Dynamic-Skin-MIT.txt',
  'LICENSES/AI-Fanworks-NOTICE.md','LICENSES/Artwork-CC-BY-NC-SA-4.0.txt',
  'patches/README.md','patches/dynamic-skin-manager-payload.patch'];

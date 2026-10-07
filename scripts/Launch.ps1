@@ -12,7 +12,12 @@ $state=Join-Path $env:LOCALAPPDATA 'CodexDragonAtelier'
 New-Item -ItemType Directory -Path $state -Force | Out-Null
 $pidFile=Join-Path $state 'watcher.json'
 $reuseWatcher=$false
-$payloadHash=(Get-FileHash -LiteralPath (Join-Path $root "dist\dragon-atelier-$Edition.js") -Algorithm SHA256).Hash
+# WinPS launched from PS7 can inherit a module path where the Get-FileHash
+# function is unavailable. Use framework SHA256 without changing module paths.
+$payloadPath=Join-Path $root "dist\dragon-atelier-$Edition.js"
+$sha=[Security.Cryptography.SHA256]::Create()
+try{$payloadHash=[BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($payloadPath))).Replace('-','')}
+finally{$sha.Dispose()}
 if(Test-Path -LiteralPath $pidFile){
   $old=Get-Content -LiteralPath $pidFile -Raw -Encoding UTF8 | ConvertFrom-Json
   $recordedStart=([DateTime]$old.startedAt).ToUniversalTime()

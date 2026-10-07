@@ -1,12 +1,12 @@
 html[data-dragon-atelier] {
-  --da-bg: #1b1c23; --da-panel: #23242c; --da-alt: #2b2c35;
+  --da-bg: #1b1c23; --da-panel: #26272f; --da-alt: #2b2c35;
   --da-text: #dedde6; --da-muted: #aaa8b8; --da-accent: #b4a6ce;
-  --da-line: #484651; --da-gold: #a89773;
+  --da-line: #53515f; --da-gold: #a89773;
 }
 html[data-dragon-atelier][data-da-mode=light] {
   --da-bg: #e8e7ed; --da-panel: #f0eff3; --da-alt: #dedce5;
   --da-text: #35333f; --da-muted: #625d70; --da-accent: #6f5888;
-  --da-line: #b7b0c4; --da-gold: #776346;
+  --da-line: #b0a8bc; --da-gold: #776346;
 }
 /* Palette is bound to stable semantic slots. Native fonts, geometry and status colors remain authoritative. */
 html[data-dragon-atelier] [data-da-part] {
@@ -58,23 +58,28 @@ html[data-dragon-atelier] [data-da-part=main] :is([data-local-conversation-final
 #dragon-atelier-scene * {pointer-events:none !important;}
 #dragon-atelier-scene::after {
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,transparent 4%,color-mix(in srgb,var(--da-bg) 65%,transparent) 35%,color-mix(in srgb,var(--da-bg) 65%,transparent) 65%,transparent 96%);
+  background:linear-gradient(90deg,transparent 20%,color-mix(in srgb,var(--da-bg) 50%,transparent) 40%,color-mix(in srgb,var(--da-bg) 50%,transparent) 60%,transparent 80%);
 }
 #dragon-atelier-scene .da-dragon {
   position:absolute;bottom:12px;width:var(--da-character-width,400px);aspect-ratio:192/208;
   background-repeat:no-repeat;background-size:800% 1100%;background-position:0 0;
-  filter:brightness(.78) saturate(.64);opacity:.44;
+  --da-art-opacity:.48;--da-art-thread-opacity:.24;
+  filter:brightness(.82) saturate(.68);opacity:var(--da-art-opacity);
 }
-html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.92) saturate(.64);opacity:.34;}
-#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;}
+html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.88) saturate(.62);}
+#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;--da-art-opacity:.38;--da-art-thread-opacity:.16;filter:brightness(.78) saturate(.64);}
+html[data-da-mode=light] #dragon-atelier-scene .da-right {--da-art-thread-opacity:.18;filter:brightness(.90) saturate(.58);}
 /* Existing full-body illustrations with background-only alpha edits.
    Both static figures belong behind native content, with an unequal scale. */
 #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {
   aspect-ratio:941/1672;background-size:100% 100%;background-position:center;
-  transform:none;filter:brightness(.86) saturate(.58);opacity:.38;
+  --da-art-opacity:.42;--da-art-thread-opacity:.22;
+  transform:none;filter:brightness(.88) saturate(.62);
   mask-image:linear-gradient(0deg,transparent,#000 8%);
 }
-html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {filter:brightness(.96) saturate(.58);opacity:.34;}
+html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {--da-art-opacity:.45;--da-art-thread-opacity:.26;filter:brightness(.94) saturate(.56);}
+#dragon-atelier-scene[data-da-edition=portrait] .da-right {--da-art-opacity:.32;--da-art-thread-opacity:.14;filter:brightness(.84) saturate(.58);}
+html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-right {--da-art-opacity:.36;--da-art-thread-opacity:.18;filter:brightness(.92) saturate(.52);}
 #dragon-atelier-scene[data-da-edition=portrait] .da-left {aspect-ratio:937/1678;}
 #dragon-atelier-scene .da-ornament {
   position:absolute;bottom:8px;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.3;
@@ -83,8 +88,7 @@ html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dra
   content:'';position:absolute;width:5px;height:5px;left:53px;top:-2px;
   border:1px solid var(--da-gold);transform:rotate(45deg);background:var(--da-bg);
 }
-#dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.18;}
-html[data-da-mode=light] #dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.14;}
+#dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:var(--da-art-thread-opacity);}
 #dragon-atelier-scene[data-da-hidden=true] {visibility:hidden;}
 @media (prefers-reduced-motion:reduce) {
   #dragon-atelier-scene * {transition:none !important;animation:none !important;}

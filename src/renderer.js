@@ -76,8 +76,9 @@
     // Large, quiet background figures scale with the chat surface, not viewport.
     // Active conversations retreat; narrow surfaces keep the reading space clear.
     const portrait=CONFIG.edition==='portrait';
-    const widths=portrait?[.94,.72].map((scale,i)=>Math.min(box.width*(i===0?.40:.32),box.height*(home?scale:scale*.66)*CONFIG.aspects[i])):
-      [0,1].map(()=>Math.min(home?440:360,box.width*.42,box.height*(home?.82:.64)*192/208));
+    const widths=portrait?[.94,.72].map((scale,i)=>Math.min(box.width*(i===0?.42:.26),box.height*(home?scale:scale*.66)*CONFIG.aspects[i])):
+      // The source frame is 192x208: cap enlargement rather than inventing detail.
+      [0,1].map(()=>Math.min(home?280:240,box.width*.34,box.height*(home?.60:.46)*192/208));
     const width=widths[0];
     const visible=box.width>=700&&box.height>420;
     setAttr(scene,'data-da-hidden',visible?'false':'true');
