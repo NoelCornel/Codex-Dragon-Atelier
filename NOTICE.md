@@ -16,6 +16,14 @@ Codex Dragon Atelier 原创代码、配色与集成：NoelCornel，2026，MIT。
 
 双姿态、输入区两侧陪伴式布局参考 Small-tailqwq 的 DSH Maid Atelier：https://github.com/Small-tailqwq/dsh-deep-whale/tree/main/maid-atelier 。没有复制该项目源码或打包其美术。
 
+## 正常比例立绘版
+
+- 左侧人物：ZipZipPipe，《AI娘化》原作集第 4 张（零基编号 p3），使用 Pixiv 提供的 670×1200 预览版本。原设的第一方取用条件仍为署名、非商用；不把该 GPT 图片宣称为 DeepSeek 的 CC BY-NC-SA 素材。
+- 右侧人物：ApprenTice，AI-Fanworks / `ApprenTice/images/ChatGPT-Girl.png`，固定提交 `18b7a71432e12f061b0300343d99cb48c647e596`。作者明确将自己的改编图像以 **CC BY-NC-SA 4.0** 发布。作者声明原样保留于 `LICENSES/AI-Fanworks-NOTICE.md`，完整许可证见 `LICENSES/Artwork-CC-BY-NC-SA-4.0.txt`。
+- ApprenTice README 将原视频描述成整体 CC BY-NC-SA 来源；本项目直接核对该视频简介后，看到其 CC 条款具体写的是鲸鱼娘。故保留该上游声明原文，同时明确：它不能扩大 GPT 原设授权。
+- 两张正常立绘通过 imagegen 做了背景移除，保留原图归档和来源，不声称前景像素完全未变；两张透明成品均含实际 alpha。左侧透明版本保留原设署名、非商用条件，不另授予上游未明确授予的权利；右侧透明衍生版本遵循 CC BY-NC-SA 4.0。文件尺寸、哈希及处理说明见 `assets/SOURCES.json` 的 `portraitSources`。
+- 立绘左右为同一角色的两种已有构图，一大一小；不绑定 Pro、Flash 或当前 GPT 模型名称。模型选择继续由官方界面控制。
+
 该项目鲸娘署名链：上善（鲸娘原型，Pixiv 用户 62155430）→ ZipZipPipe（DeepSeek 女仆角色设计，Pixiv 用户 18604994）→ Small-tailqwq（Maid Atelier 集成）。其当前项目将 MIT 代码与 CC BY-NC-SA 4.0 美术分开；该美术许可不适用于本项目的 GPT 素材。
 
 ## 上游管理器修复

@@ -1,12 +1,15 @@
 import fs from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
-const args=process.argv.slice(2),portIndex=args.indexOf('--port');
+const args=process.argv.slice(2),portIndex=args.indexOf('--port'),editionIndex=args.indexOf('--edition');
+const edition=editionIndex<0?'q':args[editionIndex+1];
+if(!['q','portrait'].includes(edition))throw new Error('Invalid artwork edition');
 const port=Number(portIndex<0?9445:args[portIndex+1]);
-if(args.some((arg,index)=>!['--port','--watch','--restore'].includes(arg)&&!(portIndex>=0&&index===portIndex+1))||args.filter(arg=>arg==='--port').length>1||args.includes('--restore')&&args.includes('--watch'))throw new Error('Unsupported arguments');
+if(args.some((arg,index)=>!['--port','--edition','--watch','--restore'].includes(arg)&&!(portIndex>=0&&index===portIndex+1)&&!(editionIndex>=0&&index===editionIndex+1))||args.filter(arg=>arg==='--port').length>1||args.filter(arg=>arg==='--edition').length>1||args.includes('--restore')&&args.includes('--watch'))throw new Error('Unsupported arguments');
 if(!Number.isInteger(port)||port<1024||port>65535)throw new Error('Invalid loopback port');
 const restoring=args.includes('--restore'),watch=args.includes('--watch');
+const themeVersion=JSON.parse(await fs.readFile(fileURLToPath(new URL('../package.json',import.meta.url)),'utf8')).version;
 const payload=restoring?'window.__DRAGON_ATELIER__?.dispose(); ({active:false,restored:true})':
- await fs.readFile(fileURLToPath(new URL('../dist/dragon-atelier.js',import.meta.url)),'utf8');
+ await fs.readFile(fileURLToPath(new URL(`../dist/dragon-atelier-${edition}.js`,import.meta.url)),'utf8');
 const base=`http://127.0.0.1:${port}`;
 async function boundedJson(path){
  const response=await fetch(base+path,{signal:AbortSignal.timeout(4000),redirect:'error'});
@@ -31,7 +34,7 @@ async function evaluate(target,expression){
   if(result.exceptionDetails)throw new Error('Renderer rejected theme');return result.result?.value;
  }finally{ws.close();}
 }
-let previous='';
+let previous='',initialized=false;
 async function apply(){
  const now=await boundedJson('/json/version');
  if(new URL(now.webSocketDebuggerUrl).pathname!==browserId)throw new Error('Browser changed; relaunch explicitly');
@@ -39,10 +42,11 @@ async function apply(){
  const main=targets.filter(t=>t.type==='page'&&t.url==='app://-/index.html');
  if(!main.length)throw new Error('Official main renderer not found; no other page modified');
  for(const target of main){
-  const status=await evaluate(target,restoring?payload:watch?
-    `window.__DRAGON_ATELIER__ ? window.__DRAGON_ATELIER__.status : ${payload}`:payload);
+  const status=await evaluate(target,restoring?payload:watch&&initialized?
+    `window.__DRAGON_ATELIER__?.edition===${JSON.stringify(edition)} && window.__DRAGON_ATELIER__.version===${JSON.stringify(themeVersion)} ? window.__DRAGON_ATELIER__.status : ${payload}`:payload);
   const line=JSON.stringify(status);if(line!==previous){console.log(line);previous=line;}
  }
+ initialized=true;
 }
 await apply();
 if(watch){

@@ -9,11 +9,16 @@ const [css,renderer,adapter]=await Promise.all([
  fs.readFile(path.join(root,'src/renderer.js'),'utf8'),
  fs.readFile(path.join(root,'src/adapter.json'),'utf8').then(JSON.parse)
 ]);
-const assetNames=['dragon-idle.webp','dragon-waving.webp'];
-const images=await Promise.all(assetNames.map(async name=>'data:image/webp;base64,'+(await fs.readFile(path.join(root,'assets',name))).toString('base64')));
-const sprite=await fs.readFile(path.join(root,'assets/dragon-spritesheet.webp')).catch(()=>null);
-const config={css,adapter,images,reducedImage:sprite?'data:image/webp;base64,'+sprite.toString('base64'):images[0]};
+const sprite=await fs.readFile(path.join(root,'assets/dragon-spritesheet.webp'));
+const version=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8')).version;
+const config={css,adapter,version,edition:'q',reducedImage:'data:image/webp;base64,'+sprite.toString('base64')};
 await fs.writeFile(path.join(out,'dragon-atelier.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
+await fs.writeFile(path.join(out,'dragon-atelier-q.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
+const portraitImages={};
+for(const [side,file,mime] of [['left','dragon-portrait-original-cutout.png','image/png'],['right','dragon-portrait-orbit-cutout.png','image/png']]) {
+ portraitImages[side]=`data:${mime};base64,`+(await fs.readFile(path.join(root,'assets',file))).toString('base64');
+}
+await fs.writeFile(path.join(out,'dragon-atelier-portrait.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify({css,adapter,version,edition:'portrait',aspects:[937/1678,941/1672],images:portraitImages})));
 const colors=JSON.parse(await fs.readFile(path.join(root,'src/tokens.json'),'utf8'));
 for(const variant of ['dark','light']) {
  const t=colors[variant];
@@ -22,6 +27,6 @@ for(const variant of ['dark','light']) {
   semanticColors:{diffAdded:variant==='dark'?'#40c977':'#008635',diffRemoved:variant==='dark'?'#ff6764':'#e02e2a',skill:variant==='dark'?'#ad7bf9':'#8046d9'},surface:t.background},variant};
  await fs.writeFile(path.join(out,`native-${variant}.txt`),'codex-theme-v1:'+JSON.stringify(share)+'\n');
 }
-const files=['dragon-atelier.js','native-dark.txt','native-light.txt'];
+const files=['dragon-atelier.js','dragon-atelier-q.js','dragon-atelier-portrait.js','native-dark.txt','native-light.txt'];
 await fs.writeFile(path.join(out,'SHA256SUMS.txt'),(await Promise.all(files.map(async f=>createHash('sha256').update(await fs.readFile(path.join(out,f))).digest('hex')+'  '+f))).join('\n')+'\n');
 console.log('Built dual appearance native themes and reversible renderer');

@@ -44,28 +44,49 @@ html[data-dragon-atelier] [data-da-part=composer] {
 }
 html[data-dragon-atelier] [data-da-part=composer]:focus-within {box-shadow:inset 0 0 0 1px var(--da-accent),0 4px 18px rgb(0 0 0 / .08) !important;}
 html[data-dragon-atelier] [data-da-part=overlay] {background-color:var(--da-panel) !important;color:var(--da-text);}
+html[data-dragon-atelier] [data-da-part=content] {position:relative;}
+html[data-dragon-atelier] [data-da-part=canvas] {background-color:transparent !important;}
+html[data-dragon-atelier] [data-da-part=main] :is([data-local-conversation-final-assistant],[data-message-author-role]) {
+  background-color:color-mix(in srgb,var(--da-bg) 94%,transparent);
+  border-radius:8px;
+}
 #dragon-atelier-scene {
-  position:fixed; inset:0; z-index:45; overflow:hidden; pointer-events:none !important;
-  contain:layout paint style; user-select:none;
+  position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none !important;
+  contain:strict; user-select:none;
+  background:radial-gradient(ellipse at 4% 100%,color-mix(in srgb,var(--da-accent) 9%,transparent),transparent 48%),radial-gradient(ellipse at 96% 100%,color-mix(in srgb,var(--da-gold) 6%,transparent),transparent 48%);
 }
 #dragon-atelier-scene * {pointer-events:none !important;}
-#dragon-atelier-scene .da-dragon {
-  position:absolute;width:var(--da-character-width,200px);aspect-ratio:192/208;
-  background-repeat:no-repeat;background-size:100% 100%;
-  filter:brightness(.78) saturate(.72);opacity:.85;
+#dragon-atelier-scene::after {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 4%,color-mix(in srgb,var(--da-bg) 65%,transparent) 35%,color-mix(in srgb,var(--da-bg) 65%,transparent) 65%,transparent 96%);
 }
-html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.95) saturate(.74);opacity:.85;}
-#dragon-atelier-scene .da-right {transform:scaleX(-1);}
+#dragon-atelier-scene .da-dragon {
+  position:absolute;bottom:12px;width:var(--da-character-width,400px);aspect-ratio:192/208;
+  background-repeat:no-repeat;background-size:800% 1100%;background-position:0 0;
+  filter:brightness(.78) saturate(.64);opacity:.44;
+}
+html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.92) saturate(.64);opacity:.34;}
+#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;}
+/* Existing full-body illustrations with background-only alpha edits.
+   Both static figures belong behind native content, with an unequal scale. */
+#dragon-atelier-scene[data-da-edition=portrait] .da-dragon {
+  aspect-ratio:941/1672;background-size:100% 100%;background-position:center;
+  transform:none;filter:brightness(.86) saturate(.58);opacity:.38;
+  mask-image:linear-gradient(0deg,transparent,#000 8%);
+}
+html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {filter:brightness(.96) saturate(.58);opacity:.34;}
+#dragon-atelier-scene[data-da-edition=portrait] .da-left {aspect-ratio:937/1678;}
 #dragon-atelier-scene .da-ornament {
-  position:absolute;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.4;
+  position:absolute;bottom:8px;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.3;
 }
 #dragon-atelier-scene .da-ornament::after {
   content:'';position:absolute;width:5px;height:5px;left:53px;top:-2px;
   border:1px solid var(--da-gold);transform:rotate(45deg);background:var(--da-bg);
 }
-#dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.38;}
+#dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.18;}
+html[data-da-mode=light] #dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:.14;}
 #dragon-atelier-scene[data-da-hidden=true] {visibility:hidden;}
 @media (prefers-reduced-motion:reduce) {
-  #dragon-atelier-scene .da-dragon {background-size:800% 1100%;background-position:0 0;}
+  #dragon-atelier-scene * {transition:none !important;animation:none !important;}
 }
 @media (forced-colors:active) {#dragon-atelier-scene {display:none;}}

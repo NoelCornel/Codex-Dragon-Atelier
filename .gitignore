@@ -6,6 +6,7 @@ dist/
 __pycache__/
 *.log
 /scripts/inspect-*.py
+/scripts/consult-opus-design.py
 /scripts/native-*.py
 /scripts/live-*.py
 /scripts/live_helpers.py

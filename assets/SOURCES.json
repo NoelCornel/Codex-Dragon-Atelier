@@ -31,5 +31,69 @@
       "bytes": 3020366,
       "modified": false
     }
+  ],
+  "portraitSources": [
+    {
+      "file": "dragon-portrait-original.jpg",
+      "source": "https://i.pximg.net/img-master/img/2026/08/09/01/18/27/148186519_p3_master1200.jpg",
+      "sha256": "56f9a966f8d3e70d1957898615d3ffb676b9594cfdd74663ac7679e9f81abcfa",
+      "bytes": 756525,
+      "size": [
+        670,
+        1200
+      ],
+      "modified": false,
+      "permission": "ZipZipPipe: attribution and noncommercial reuse; not a blanket CC license"
+    },
+    {
+      "file": "dragon-portrait-original-cutout.png",
+      "source": "dragon-portrait-original.jpg",
+      "sha256": "285b3733d562857ba173f0265d72248241ebc05b77b50d0003e2d6c14e8cc8c7",
+      "bytes": 1964418,
+      "size": [
+        937,
+        1678
+      ],
+      "modified": true,
+      "permission": "Underlying ZipZipPipe character rights retained: attribution and noncommercial reuse",
+      "modification": "imagegen background-only alpha edit, 2026-10-07; no claim of pixel-identical foreground",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "file": "dragon-portrait-orbit.png",
+      "source": "https://github.com/Apprentice-Geo/AI-Fanworks/blob/18b7a71432e12f061b0300343d99cb48c647e596/ApprenTice/images/ChatGPT-Girl.png",
+      "sha256": "c5cbe211d6914099371c10ca37a1a83bab31955d51ea15c811895a14fe8cd1a3",
+      "bytes": 1963914,
+      "size": [
+        941,
+        1672
+      ],
+      "modified": false,
+      "permission": "ApprenTice: CC-BY-NC-SA-4.0; underlying ZipZipPipe attribution/noncommercial conditions retained"
+    },
+    {
+      "file": "dragon-portrait-orbit-cutout.png",
+      "source": "dragon-portrait-orbit.png",
+      "sha256": "a40a9c1c42630883c279bb9e83c4ac02032a0a710e6c328090aae841c5ac9704",
+      "bytes": 2001081,
+      "size": [
+        941,
+        1672
+      ],
+      "modified": true,
+      "permission": "CC-BY-NC-SA-4.0 for the derivative; underlying character rights retained",
+      "modification": "imagegen background-only alpha edit, 2026-10-07; no claim of pixel-identical foreground",
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
   ]
 }
