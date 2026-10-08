@@ -37,7 +37,7 @@ for edition in ['q','portrait']:
   if edition=='q':
    composer_top=page.locator('[data-composer-surface-variant]:visible').first.bounding_box()['y']
    assert max(f['bottom'] for f in figures)<=composer_top-27,'Chibi artwork must clear the composer visually'
-  assert page.locator('.da-left').evaluate('e=>getComputedStyle(e).backgroundImage')!=page.locator('.da-right').evaluate('e=>getComputedStyle(e).backgroundImage') if edition=='portrait' else page.locator('.da-left').evaluate('e=>getComputedStyle(e).backgroundPosition')!=page.locator('.da-right').evaluate('e=>getComputedStyle(e).backgroundPosition')
+  assert page.locator('.da-left').evaluate('e=>getComputedStyle(e).backgroundImage')!=page.locator('.da-right').evaluate('e=>getComputedStyle(e).backgroundImage') if edition=='portrait' else page.locator('.da-left').evaluate('e=>getComputedStyle(e).transform')=='none' and page.locator('.da-right').evaluate('e=>getComputedStyle(e).transform')=='matrix(-1, 0, 0, 1, 0, 0)'
   idle=page.evaluate('window.__rafCount');page.wait_for_timeout(350)
   assert page.evaluate('window.__rafCount')-idle<=1,'Owned mutations caused a continuous repaint loop'
   assert page.evaluate('getComputedStyle(document.body).getPropertyValue("--color-text-danger")')==color
@@ -68,7 +68,7 @@ for edition in ['q','portrait']:
   assert page.evaluate('window.__DRAGON_ATELIER__.status.context')=='thread'
   assert page.evaluate('window.__DRAGON_ATELIER__.status.characters')==2
   page.emulate_media(reduced_motion='reduce');page.wait_for_timeout(100)
-  assert page.locator('.da-dragon').first.evaluate("e=>getComputedStyle(e).backgroundSize")==('100% 100%' if edition=='portrait' else '800% 1100%')
+  assert page.locator('.da-dragon').first.evaluate("e=>getComputedStyle(e).backgroundSize")=='100% 100%'
   assert page.locator('#dragon-atelier-scene').evaluate('e=>e.inert') is True
   # Settings keep color roles while artwork hides.
   page.evaluate("()=>{const s=document.createElement('section');s.setAttribute('data-settings-panel-slug','appearance');s.style.cssText='width:400px;height:200px';document.body.append(s)}")
@@ -100,9 +100,9 @@ for edition in ['q','portrait']:
    assert scaled.evaluate('window.__DRAGON_ATELIER__.status.devicePixelRatio')==scale
    boxes=scaled.locator('.da-dragon').evaluate_all('els=>els.map(e=>({height:e.getBoundingClientRect().height,width:e.getBoundingClientRect().width}))')
    for box in boxes:
-    assert box['height']*scale<=1672+1 if edition=='portrait' else box['width']*scale<=192+1,'Artwork must not upscale beyond its native cell pixels'
+    assert box['height']*scale<=1672+1 and box['width']*scale<=941+1,'Artwork must not upscale beyond its native pixels'
    scaled.set_viewport_size({'width':850,'height':900});scaled.wait_for_timeout(100)
    assert scaled.evaluate('window.__DRAGON_ATELIER__.status.characters')==0
    scaled.evaluate('window.__DRAGON_ATELIER__.dispose()');context.close()
   browser.close()
-  print(json.dumps({'edition':edition,'fixtureChecks':['autoScheme','nativeStatusColor','narrowHide','chatBackgroundParent','nativeMenuTier','edgeControlClick','columnResize','staticDistinctPoses','idleObserver','cachedRouteVisibility','threadBackground','reducedMotion','inert','adultProportionsOrEqualQ','nativeInnerFrame','visiblePseudoPlaceholder','chibiInputClearance','settingsPalette','forcedColorsFallback','missingAnchorFallback','unsupportedHost','restore','localNavigationTextAlias','nativePixelCaps'],'deviceScaleFactors':[1,1.25,1.5,2],'passed':True}))
+  print(json.dumps({'edition':edition,'fixtureChecks':['autoScheme','nativeStatusColor','narrowHide','chatBackgroundParent','nativeMenuTier','edgeControlClick','columnResize','staticArtworkAndInwardQ','idleObserver','cachedRouteVisibility','threadBackground','reducedMotion','inert','adultProportionsOrEqualQ','nativeInnerFrame','visiblePseudoPlaceholder','chibiInputClearance','settingsPalette','forcedColorsFallback','missingAnchorFallback','unsupportedHost','restore','localNavigationTextAlias','nativePixelCaps'],'deviceScaleFactors':[1,1.25,1.5,2],'passed':True}))

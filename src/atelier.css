@@ -36,9 +36,9 @@ html[data-dragon-atelier] [data-da-part=main] pre {background-color:var(--da-cod
 }
 #dragon-atelier-scene * {pointer-events:none !important;}
 #dragon-atelier-scene::after {content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 18%,color-mix(in srgb,var(--da-background) 18%,transparent) 38%,color-mix(in srgb,var(--da-background) 18%,transparent) 62%,transparent 82%);}
-#dragon-atelier-scene .da-dragon {position:absolute;width:var(--da-character-width,192px);aspect-ratio:192/208;background-repeat:no-repeat;background-size:800% 1100%;background-position:0 0;--da-art-opacity:.96;--da-art-thread-opacity:.78;image-rendering:auto;filter:none;opacity:var(--da-art-opacity);}
+#dragon-atelier-scene .da-dragon {position:absolute;width:var(--da-character-width,280px);aspect-ratio:941/1672;background-repeat:no-repeat;background-size:100% 100%;background-position:center;--da-art-opacity:.96;--da-art-thread-opacity:.78;image-rendering:auto;filter:none;opacity:var(--da-art-opacity);}
 
-#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;}
+#dragon-atelier-scene .da-right {transform:scaleX(-1);}
 /* Adult companions: mature on the left, younger on the right; consistent rendering. */
 #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {aspect-ratio:941/1672;background-size:100% 100%;background-position:center;--da-art-opacity:.96;--da-art-thread-opacity:.80;transform:none;filter:drop-shadow(0 1px 0 var(--da-characterOutline));mask-image:linear-gradient(0deg,transparent,#000 3%);}
 html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {--da-art-opacity:.96;--da-art-thread-opacity:.80;}

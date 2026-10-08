@@ -1,6 +1,6 @@
 # Codex Dragon Atelier · 龙娘工坊
 
-现代简约、克制典雅的 GPT 白发龙娘主题。暖灰石与纸感底色搭配少量雾紫、哑金；明暗是亮度模式，不限定纯黑和纯白。DSH Maid Atelier 提供完整度与层次的参考，正常立绘采用年轻成年/成熟成年两种气质，参考自然体型差异与相向陪伴；Q 版保留原作双姿态。
+现代简约、克制典雅的 GPT 白发龙娘主题。暖灰石与纸感底色搭配少量雾紫、哑金；明暗是亮度模式，不限定纯黑和纯白。DSH Maid Atelier 提供完整度与层次的参考，正常立绘采用年轻成年/成熟成年两种气质，参考自然体型差异与相向陪伴；Q版采用公开高清原图朝内对称排布。
 
 **v0.1.0-beta.3 · Windows Store Codex 26.1002.6548.0。** [Windows 预发布下载](https://github.com/NoelCornel/Codex-Dragon-Atelier/releases/tag/v0.1.0-beta.3)。这是独立、非官方项目，未获 OpenAI 官方授权或背书。
 
@@ -9,14 +9,14 @@
 | ![Q 暗色真实匿名预览](docs/images/background-q-dark.png) | ![立绘暗色真实匿名预览](docs/images/background-portrait-dark.png) |
 | ![Q 明色真实匿名预览](docs/images/background-q-light.png) | ![立绘明色真实匿名预览](docs/images/background-portrait-light.png) |
 
-Q 素材：fywdy，原设 ZipZipPipe。正常版为本项目参考 ZipZipPipe 原设与 ApprenTice 改编生成的透明衍生立绘。原图、来源及提示词均保留，新生成 Q 候选已撤回。[来源、署名与各素材许可](NOTICE.md)。
+当前Q素材：ApprenTice，原设ZipZipPipe；fywdy低分辨率桌宠图集保留归档。正常版为本项目参考 ZipZipPipe 原设与 ApprenTice 改编生成的透明衍生立绘。原图、来源及提示词均保留，新生成 Q 候选已撤回。[来源、署名与各素材许可](NOTICE.md)。
 
 ## 版本选择与安装
 
 1. 下载并核对 Release 的 SHA256SUMS，解压到固定目录。全量版需要 Node.js 22+ 与 Microsoft Store Codex；本机验证为 Node 24.16.0。
 2. 在 Codex「设置 → 外观」先复制自己的原明暗主题分享码，便于恢复。
 3. **Lite 轻量配色**：运行「复制轻量版配色.cmd」，选择明色或暗色，将复制的分享码粘贴到官方相应主题导入框。分别导入两种模式即可。也可直接复制 `dist/native-dark.txt` 与 `dist/native-light.txt`。Lite 没有人物、渐层或后台观察进程，细部状态由官方客户端派生。
-4. **Full Q**：导入相同两份配色后，双击「启动Q版背景.cmd」。原版 Q 双姿态沿聊天区水平中部布置，保持同等大小并避开输入框。单格192×208，按屏幕 DPR 限制不放大；125%时最大153.6 CSS px，因此比旧放大展示更小，不能靠插值恢复缺失细节。
+4. **Full Q**：导入相同两份配色后，双击「启动Q版背景.cmd」。采用941×1672公开高清Q图的透明衍生，左原图、右CSS镜像，两侧朝内、等大、中部并避开输入框。当前125%缩放首页每幅约265.75 CSS px；保留原像素上限，不放大旧192px帧冒充高清。两侧为同一原图的对称构图，未虚称不同姿态。
 5. **Full Portrait**：导入相同配色后，双击「启动立绘背景.cmd」。成熟成年在左、年轻成年在右，相向手势、共同落脚，右高度为左 .94，不机械做成巨人/小人。使用两张941×1672生成衍生图。默认「启动龙娘工坊.cmd」启动 Q 版。
 
 全量版还提供容器、文字层级、菜单、代码块、链接、输入焦点、按钮状态和背景材质的完整色表。字体家族、字号、字重和行高保留用户原生设置。三种选择共用 `src/tokens.json`，由同一源码构建。[完整能力与实施对照](docs/主题实施对照.md)。
@@ -37,6 +37,7 @@ Q 素材：fywdy，原设 ZipZipPipe。正常版为本项目参考 ZipZipPipe �
 
 用户授权的本机 Wawazz / `claude-opus-5-5` 指导已保存正文；最新长回复截断的 H 色表另行补齐，原文与核验结果分别记录。返回模型标识来自转发服务，不等于底层身份的独立认证。
 
+- [高清Q素材与排布](docs/高清Q素材与排布.md)：最新高清原图、提示词、许可、透明处理及朝内布局。
 - [可读性与双角色实施指导](docs/可读性与双角色实施指导.md)：最新建议正文，含字体、完整色表与轮廓职责。
 - [可读性修订实施记录](docs/可读性修订实施记录.md)：实际 DOM 原因、采用/纠正、撤回 Q 生成与分辨率限制。
 - [完整主题指导模板](docs/完整主题指导模板.md)：模型全文，包含候选选择、完整职责与设计方法。
@@ -59,4 +60,4 @@ node scripts/package.mjs
 
 Dynamic Skin Manager 1.6.2 的[运行时资源漏打包修复](patches/README.md)保留为独立补丁；本机没有 .NET SDK，未重打包其 EXE。
 
-原创代码 MIT；Q 素材 CC BY-NC 4.0；ApprenTice 立绘及其参考衍生立绘保留 CC BY-NC-SA 4.0 条件；ZipZipPipe 的 GPT 原设图遵循其第一方署名、非商业取用说明，不套用其 DeepSeek 角色许可。**代码 MIT 不覆盖立绘。** DSH 的鲸鱼角色图未复制，开屏视频未抽帧。素材级限制见 NOTICE。
+原创代码 MIT；旧fywdy Q素材CC BY-NC 4.0；当前ApprenTice高清Q及透明衍生CC BY-NC-SA 4.0；ApprenTice 立绘及其参考衍生立绘保留 CC BY-NC-SA 4.0 条件；ZipZipPipe 的 GPT 原设图遵循其第一方署名、非商业取用说明，不套用其 DeepSeek 角色许可。**代码 MIT 不覆盖立绘。** DSH 的鲸鱼角色图未复制，开屏视频未抽帧。素材级限制见 NOTICE。

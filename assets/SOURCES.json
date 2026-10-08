@@ -157,16 +157,55 @@
     }
   ],
   "currentChibiUse": {
-    "file": "dragon-spritesheet.webp",
-    "cellSize": [
-      192,
-      208
+    "file": "dragon-chibi-apprentice-cutout-v1.png",
+    "nativeSize": [
+      941,
+      1672
     ],
-    "sheetSize": [
-      1536,
-      2288
-    ],
-    "reencoded": false,
-    "generationRejected": "Generated Q atlas was rejected by the user for appearance and edge quality; excluded from build and release. Original artwork is rendered without native-pixel upscaling."
-  }
+    "layout": "Same published illustration twice; original on left facing right, CSS mirrored on right facing left. Equal size, not distinct poses or model identities.",
+    "renderedHomeCSSWidthAtDPR1_25": 265.754,
+    "sourceCommit": "e815a9726b928063c40ef59f55e585169daafb0c",
+    "artworkReencodedAfterGeneration": false,
+    "generationRejected": "Prompt-only Q atlas and second alpha refinement excluded from build/release; low-res fywdy sprite archived."
+  },
+  "highResolutionChibiSources": [
+    {
+      "file": "dragon-chibi-apprentice-original.png",
+      "source": "https://github.com/Apprentice-Geo/AI-Fanworks/blob/e815a9726b928063c40ef59f55e585169daafb0c/ApprenTice/images/ChatGPT-Chibi.png",
+      "sha256": "546223ab14b24ae765a1ad6218a59379723a1bb057f3deddfedcde82193983c4",
+      "bytes": 1924563,
+      "size": [
+        941,
+        1672
+      ],
+      "mode": "RGB",
+      "modified": false,
+      "artist": "ApprenTice",
+      "originalCharacterDesigner": "ZipZipPipe",
+      "permission": "CC-BY-NC-SA-4.0 for ApprenTice image and alpha derivative; underlying character attribution and noncommercial conditions retained"
+    },
+    {
+      "file": "dragon-chibi-apprentice-cutout-v1.png",
+      "source": "dragon-chibi-apprentice-original.png",
+      "sha256": "725111dbedc9e754ef93389e6cb7ab4ce39924bb804f7afd09b6b48b3851f960",
+      "bytes": 1908315,
+      "size": [
+        941,
+        1672
+      ],
+      "mode": "RGBA",
+      "modified": true,
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "artist": "ApprenTice",
+      "originalCharacterDesigner": "ZipZipPipe",
+      "permission": "CC-BY-NC-SA-4.0 for ApprenTice image and alpha derivative; underlying character attribution and noncommercial conditions retained",
+      "modification": "imagegen background-only alpha edit; foreground not claimed pixel-identical; second refinement rejected after alpha inspection",
+      "promptFile": "GENERATED_PROMPTS.md"
+    }
+  ]
 }

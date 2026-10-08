@@ -90,7 +90,7 @@
     // Natural adult-height difference; no exaggerated giant/small hierarchy.
     const nativeCap=portrait?Math.min(...CONFIG.pixelHeights)/devicePixelRatio:Infinity;
     const portraitHeight=portrait?Math.min(box.height*(home?.87:.66),box.width*.37/Math.max(...CONFIG.aspects),nativeCap):0;
-    const qWidth=Math.min(home?280:240,box.width*.32,box.height*(home?.60:.46)*CONFIG.cellAspect,Math.max(0,readingFloor-24)*CONFIG.cellAspect,CONFIG.cellPixels/devicePixelRatio);
+    const qWidth=Math.min(home?300:260,box.width*.32,box.height*(home?.60:.46)*CONFIG.cellAspect,Math.max(0,readingFloor-24)*CONFIG.cellAspect,CONFIG.cellPixels/devicePixelRatio);
     const heights=portrait?[portraitHeight,portraitHeight*.94]:[qWidth/CONFIG.cellAspect,qWidth/CONFIG.cellAspect];
     const widths=portrait?CONFIG.aspects.map((aspect,i)=>heights[i]*aspect):[qWidth,qWidth];
     // Chibi faces sit along the chat's horizontal middle, wholly above input.

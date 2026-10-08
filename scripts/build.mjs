@@ -18,12 +18,13 @@ for(const role of Object.values(bindings)) {
 // One palette source for full CSS and official native sharing codes. High contrast
 // leaves the native client in charge instead of retaining the custom palette.
 const css=`@media (forced-colors:none) {\nhtml[data-dragon-atelier] {\n${declarations(colors.dark)}\n  --da-bg:var(--da-background); --da-alt:var(--da-panelAlt);\n}\nhtml[data-dragon-atelier][data-da-mode=light] {\n${declarations(colors.light)}\n}\nhtml[data-dragon-atelier],html[data-dragon-atelier] [data-da-part] {\n${Object.entries(bindings).map(([name,role])=>`  ${name}:var(--da-${role}) !important;`).join('\n')}\n}\n${layout}\n}\n@media (forced-colors:active) {#dragon-atelier-scene {display:none !important;}}`;
-const sprite=await fs.readFile(path.join(root,'assets/dragon-spritesheet.webp'));
+const sprite=await fs.readFile(path.join(root,'assets/dragon-chibi-apprentice-cutout-v1.png'));
 const pngDimensions=b=>({width:b.readUInt32BE(16),height:b.readUInt32BE(20)});
 const version=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8')).version;
-// Original upstream artwork: the full sheet is 1536x2288, each cell 192x208.
-// A larger sheet does not mean each character has a higher native resolution.
-const config={css,adapter,version,edition:'q',artwork:'upstream-original-native-size',cellPixels:192,cellAspect:192/208,reducedImage:'data:image/webp;base64,'+sprite.toString('base64')};
+// Published HD chibi illustration, background-only alpha edit. Native low-res
+// desktop sprite sheet is archived, not enlarged into a decorative backdrop.
+const qSize=pngDimensions(sprite);
+const config={css,adapter,version,edition:'q',artwork:'apprentice-hd-cutout-v1',cellPixels:qSize.width,cellAspect:qSize.width/qSize.height,reducedImage:'data:image/png;base64,'+sprite.toString('base64')};
 await fs.writeFile(path.join(out,'dragon-atelier.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
 await fs.writeFile(path.join(out,'dragon-atelier-q.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
 const portraitImages={},portraitSizes=[];

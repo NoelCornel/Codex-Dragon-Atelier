@@ -8,7 +8,7 @@ Codex Dragon Atelier 原创代码、配色与集成：NoelCornel，2026，MIT。
 
 - 原角色设计：**ZipZipPipe**（Pixiv 用户 18604994）。第一方来源：《AI娘化》，https://www.pixiv.net/artworks/148186519 。作者取用说明为「作为保存用，方便所有人取用，需要标注作者，不可商用。」
 - 该帖关于 DeepSeek 娘的 CC BY-NC-SA 4.0 说明，不能自动套用于 GPT 龙娘。GPT 原设的说明没有完整列出所有衍生创作、再授权情形，本项目不声称取得额外独占授权。
-- 本项目使用 **fywdy / chatgpt-chibi-pets** 已公开的白发龙娘 Q 版素材，保持文件字节不变，当前Q版仅在界面中按原像素限制缩放、镜像，使用两个静态帧，不重新编码。上游说明该素材由生成式图像工具产出并经人工筛选、拼接与修复；不是本项目重新绘制的角色。
+- 本项目归档 **fywdy / chatgpt-chibi-pets** 已公开的白发龙娘Q版素材，当前高清Q另见末节，保持文件字节不变，此前Q版仅在界面中按原像素限制缩放、镜像，使用两个静态帧，不重新编码。上游说明该素材由生成式图像工具产出并经人工筛选、拼接与修复；不是本项目重新绘制的角色。
 - 上游美术许可：**CC BY-NC 4.0**。完整文本见 `LICENSES/Artwork-CC-BY-NC-4.0.txt`；保留其非官方声明 `LICENSES/Upstream-Pets-NOTICE.md`。来源固定到提交 `d5bbb27c79e5c08e8b8ab44d4023cd35a67418e2`，每个图像的路径、Git blob 与 SHA256 见 `assets/SOURCES.json`。
 - 上游许可不扩大原设权利，不是 OpenAI 品牌或商标许可。角色整体使用遵守署名、非商业条件。权利人可通过本仓库 Issues 提出素材问题。
 
@@ -42,4 +42,8 @@ Codex 官方文档支持原生明暗配色、字体设置与主题分享：https
 - `dragon-young-generated-v1.png`：参考 ZipZipPipe 原设及前项生成图，通过 imagegen 生成的年轻成年、右侧记事姿态透明衍生图，941×1672。
 - 原设署名 ZipZipPipe、参考改编署名 ApprenTice、生成方向与集成 NoelCornel。保留 ApprenTice 参考衍生的 CC BY-NC-SA 4.0 条件，并保留底层角色署名、非商业取用限制；这些条款不扩大底层 GPT 原设权利，不声称获得角色额外独占或品牌授权。
 - 两图未经本项目再次栅格编码，尺寸、alpha、哈希、参考文件在 `assets/SOURCES.json` 的 `generatedPortraitSources`。提示词和使用状态见 `assets/GENERATED_PROMPTS.md`。生成式衍生不等于原作者亲绘或官方认可。
-- 新生成 Q 图集被用户否定，已撤回，未放入构建和发行包。当前 Q 使用原 fywdy 图集；图集单格只有192×208，不将整张图集尺寸宣称为单人物高清。
+- 新生成 Q 图集被用户否定，已撤回，未放入构建和发行包。旧fywdy图集单格只有192×208，保留归档，不将整张图集尺寸宣称为单人物高清。
+
+## 最新公开高清 Q 原图与透明衍生
+
+`dragon-chibi-apprentice-original.png` 为 ApprenTice 的公开 ChatGPT-Chibi.png，固定提交 e815a9726b928063c40ef59f55e585169daafb0c，941×1672，归档字节未改。`dragon-chibi-apprentice-cutout-v1.png` 为本项目 imagegen 背景去除衍生，不声称前景像素一致；原图及衍生遵守 CC BY-NC-SA 4.0，署名 ApprenTice、原设 ZipZipPipe、处理与集成 NoelCornel，底层角色边界同上。两侧为同幅图原向/镜像朝内布局。作者提示词只作本机参考，不重新打包整份文件。来源及哈希见 SOURCES 的 highResolutionChibiSources，说明见 docs/高清Q素材与排布.md。
