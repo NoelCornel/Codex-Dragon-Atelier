@@ -8,7 +8,7 @@ Codex Dragon Atelier 原创代码、配色与集成：NoelCornel，2026，MIT。
 
 - 原角色设计：**ZipZipPipe**（Pixiv 用户 18604994）。第一方来源：《AI娘化》，https://www.pixiv.net/artworks/148186519 。作者取用说明为「作为保存用，方便所有人取用，需要标注作者，不可商用。」
 - 该帖关于 DeepSeek 娘的 CC BY-NC-SA 4.0 说明，不能自动套用于 GPT 龙娘。GPT 原设的说明没有完整列出所有衍生创作、再授权情形，本项目不声称取得额外独占授权。
-- 本项目使用 **fywdy / chatgpt-chibi-pets** 已公开的白发龙娘 Q 版素材，保持文件字节不变，仅在界面中缩放、镜像和调节显示亮度。上游说明该素材由生成式图像工具产出并经人工筛选、拼接与修复；不是本项目重新绘制的角色。
+- 本项目使用 **fywdy / chatgpt-chibi-pets** 已公开的白发龙娘 Q 版素材，保持文件字节不变，当前Q版仅在界面中按原像素限制缩放、镜像，使用两个静态帧，不重新编码。上游说明该素材由生成式图像工具产出并经人工筛选、拼接与修复；不是本项目重新绘制的角色。
 - 上游美术许可：**CC BY-NC 4.0**。完整文本见 `LICENSES/Artwork-CC-BY-NC-4.0.txt`；保留其非官方声明 `LICENSES/Upstream-Pets-NOTICE.md`。来源固定到提交 `d5bbb27c79e5c08e8b8ab44d4023cd35a67418e2`，每个图像的路径、Git blob 与 SHA256 见 `assets/SOURCES.json`。
 - 上游许可不扩大原设权利，不是 OpenAI 品牌或商标许可。角色整体使用遵守署名、非商业条件。权利人可通过本仓库 Issues 提出素材问题。
 
@@ -16,13 +16,13 @@ Codex Dragon Atelier 原创代码、配色与集成：NoelCornel，2026，MIT。
 
 双姿态、输入区两侧陪伴式布局参考 Small-tailqwq 的 DSH Maid Atelier：https://github.com/Small-tailqwq/dsh-deep-whale/tree/main/maid-atelier 。没有复制该项目源码或打包其美术。
 
-## 正常比例立绘版
+## beta.1 / beta.2 归档的正常比例立绘来源
 
 - 左侧人物：ZipZipPipe，《AI娘化》原作集第 4 张（零基编号 p3），使用 Pixiv 提供的 670×1200 预览版本。原设的第一方取用条件仍为署名、非商用；不把该 GPT 图片宣称为 DeepSeek 的 CC BY-NC-SA 素材。
 - 右侧人物：ApprenTice，AI-Fanworks / `ApprenTice/images/ChatGPT-Girl.png`，固定提交 `18b7a71432e12f061b0300343d99cb48c647e596`。作者明确将自己的改编图像以 **CC BY-NC-SA 4.0** 发布。作者声明原样保留于 `LICENSES/AI-Fanworks-NOTICE.md`，完整许可证见 `LICENSES/Artwork-CC-BY-NC-SA-4.0.txt`。
 - ApprenTice README 将原视频描述成整体 CC BY-NC-SA 来源；本项目直接核对该视频简介后，看到其 CC 条款具体写的是鲸鱼娘。故保留该上游声明原文，同时明确：它不能扩大 GPT 原设授权。
 - 两张正常立绘通过 imagegen 做了背景移除，保留原图归档和来源，不声称前景像素完全未变；两张透明成品均含实际 alpha。左侧透明版本保留原设署名、非商用条件，不另授予上游未明确授予的权利；右侧透明衍生版本遵循 CC BY-NC-SA 4.0。文件尺寸、哈希及处理说明见 `assets/SOURCES.json` 的 `portraitSources`。
-- 立绘左右为同一角色的两种已有构图，一大一小；不绑定 Pro、Flash 或当前 GPT 模型名称。模型选择继续由官方界面控制。
+- 历史版立绘左右为同一角色的两种已有构图；当前 beta.3 见下节，不绑定 Pro、Flash 或当前 GPT 模型名称。模型选择继续由官方界面控制。
 
 该项目鲸娘署名链：上善（鲸娘原型，Pixiv 用户 62155430）→ ZipZipPipe（DeepSeek 女仆角色设计，Pixiv 用户 18604994）→ Small-tailqwq（Maid Atelier 集成）。其当前项目将 MIT 代码与 CC BY-NC-SA 4.0 美术分开；该美术许可不适用于本项目的 GPT 素材。
 
@@ -35,3 +35,11 @@ Codex Dragon Atelier 原创代码、配色与集成：NoelCornel，2026，MIT。
 Codex 官方文档支持原生明暗配色、字体设置与主题分享：https://learn.chatgpt.com/docs/reference/settings 。完整角色场景通过本机 CDP 注入实现，是本项目的实验性扩展，没有找到官方对该扩展的明确支持声明；不将其描述为官方主题插件。
 
 本项目与 OpenAI 无关联、授权、赞助或背书。ChatGPT、Codex 及其他名称和商标归各自所有者所有。
+
+## beta.3 新正常立绘与撤回的 Q 候选
+
+- `dragon-mature-generated-v1.png`：参考 ZipZipPipe GPT 原设及 ApprenTice 改编图，通过 imagegen 生成的成熟成年、左侧开放手势透明衍生图，941×1672。
+- `dragon-young-generated-v1.png`：参考 ZipZipPipe 原设及前项生成图，通过 imagegen 生成的年轻成年、右侧记事姿态透明衍生图，941×1672。
+- 原设署名 ZipZipPipe、参考改编署名 ApprenTice、生成方向与集成 NoelCornel。保留 ApprenTice 参考衍生的 CC BY-NC-SA 4.0 条件，并保留底层角色署名、非商业取用限制；这些条款不扩大底层 GPT 原设权利，不声称获得角色额外独占或品牌授权。
+- 两图未经本项目再次栅格编码，尺寸、alpha、哈希、参考文件在 `assets/SOURCES.json` 的 `generatedPortraitSources`。提示词和使用状态见 `assets/GENERATED_PROMPTS.md`。生成式衍生不等于原作者亲绘或官方认可。
+- 新生成 Q 图集被用户否定，已撤回，未放入构建和发行包。当前 Q 使用原 fywdy 图集；图集单格只有192×208，不将整张图集尺寸宣称为单人物高清。

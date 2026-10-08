@@ -4,22 +4,33 @@ import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const out=path.join(root,'dist');await fs.mkdir(out,{recursive:true});
-const [css,renderer,adapter]=await Promise.all([
+const [layout,renderer,adapter,colors,bindings]=await Promise.all([
  fs.readFile(path.join(root,'src/atelier.css'),'utf8'),
  fs.readFile(path.join(root,'src/renderer.js'),'utf8'),
- fs.readFile(path.join(root,'src/adapter.json'),'utf8').then(JSON.parse)
+ fs.readFile(path.join(root,'src/adapter.json'),'utf8').then(JSON.parse),
+ fs.readFile(path.join(root,'src/tokens.json'),'utf8').then(JSON.parse),
+ fs.readFile(path.join(root,'src/native-token-map.json'),'utf8').then(JSON.parse)
 ]);
+const declarations=t=>Object.entries(t).map(([role,value])=>`  --da-${role}: ${value};`).join('\n');
+for(const role of Object.values(bindings)) {
+ if(!colors.dark[role]||!colors.light[role])throw new Error(`Missing palette role: ${role}`);
+}
+// One palette source for full CSS and official native sharing codes. High contrast
+// leaves the native client in charge instead of retaining the custom palette.
+const css=`@media (forced-colors:none) {\nhtml[data-dragon-atelier] {\n${declarations(colors.dark)}\n  --da-bg:var(--da-background); --da-alt:var(--da-panelAlt);\n}\nhtml[data-dragon-atelier][data-da-mode=light] {\n${declarations(colors.light)}\n}\nhtml[data-dragon-atelier],html[data-dragon-atelier] [data-da-part] {\n${Object.entries(bindings).map(([name,role])=>`  ${name}:var(--da-${role}) !important;`).join('\n')}\n}\n${layout}\n}\n@media (forced-colors:active) {#dragon-atelier-scene {display:none !important;}}`;
 const sprite=await fs.readFile(path.join(root,'assets/dragon-spritesheet.webp'));
+const pngDimensions=b=>({width:b.readUInt32BE(16),height:b.readUInt32BE(20)});
 const version=JSON.parse(await fs.readFile(path.join(root,'package.json'),'utf8')).version;
-const config={css,adapter,version,edition:'q',reducedImage:'data:image/webp;base64,'+sprite.toString('base64')};
+// Original upstream artwork: the full sheet is 1536x2288, each cell 192x208.
+// A larger sheet does not mean each character has a higher native resolution.
+const config={css,adapter,version,edition:'q',artwork:'upstream-original-native-size',cellPixels:192,cellAspect:192/208,reducedImage:'data:image/webp;base64,'+sprite.toString('base64')};
 await fs.writeFile(path.join(out,'dragon-atelier.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
 await fs.writeFile(path.join(out,'dragon-atelier-q.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify(config)));
-const portraitImages={};
-for(const [side,file,mime] of [['left','dragon-portrait-original-cutout.png','image/png'],['right','dragon-portrait-orbit-cutout.png','image/png']]) {
- portraitImages[side]=`data:${mime};base64,`+(await fs.readFile(path.join(root,'assets',file))).toString('base64');
+const portraitImages={},portraitSizes=[];
+for(const [side,file,mime] of [['left','dragon-mature-generated-v1.png','image/png'],['right','dragon-young-generated-v1.png','image/png']]) {
+ const bytes=await fs.readFile(path.join(root,'assets',file));portraitImages[side]=`data:${mime};base64,`+bytes.toString('base64');portraitSizes.push(pngDimensions(bytes));
 }
-await fs.writeFile(path.join(out,'dragon-atelier-portrait.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify({css,adapter,version,edition:'portrait',aspects:[937/1678,941/1672],images:portraitImages})));
-const colors=JSON.parse(await fs.readFile(path.join(root,'src/tokens.json'),'utf8'));
+await fs.writeFile(path.join(out,'dragon-atelier-portrait.js'),renderer.replace('__ATELIER_CONFIG__',JSON.stringify({css,adapter,version,edition:'portrait',artwork:'generated-adult-companions-v1',aspects:portraitSizes.map(s=>s.width/s.height),pixelHeights:portraitSizes.map(s=>s.height),images:portraitImages})));
 for(const variant of ['dark','light']) {
  const t=colors[variant];
  const share={codeThemeId:'codex',theme:{accent:t.accent,accentSource:'custom',contrast:variant==='dark'?55:45,

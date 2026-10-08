@@ -1,15 +1,16 @@
 {
-  "schemaVersion":1,
-  "verifiedVersion":"26.1002.6548.0",
-  "evidence":"local live renderer; Windows Store; 2026-10-07",
-  "selectors":{
-    "main":"main[data-app-shell-main-surface]",
-    "sidebar":"aside.app-shell-left-panel",
-    "composer":"[data-composer-surface-variant][data-composer-radius-variant]",
-    "editor":"[data-codex-composer][contenteditable=true]",
-    "home":"[data-testid=home-icon]",
-    "settings":"[data-settings-panel-slug],input[name=appearance-theme]"
+  "schemaVersion": 1,
+  "verifiedVersion": "26.1002.6548.0",
+  "evidence": "local live renderer; Windows Store; 2026-10-07",
+  "selectors": {
+    "main": "main[data-app-shell-main-surface]",
+    "sidebar": "aside.app-shell-left-panel",
+    "composer": "[data-composer-surface-variant][data-composer-radius-variant]",
+    "editor": "[data-codex-composer][contenteditable=true]",
+    "home": "[data-testid=home-icon]",
+    "settings": "[data-settings-panel-slug],input[name=appearance-theme]",
+    "composerFrame": "[data-composer-body]"
   },
-  "appearance":"computed color-scheme from unmodified document root; electron classes are optional",
-  "policy":"No layout/position overrides on native UI; reject missing main/composer; never patch official files"
+  "appearance": "computed color-scheme from unmodified document root; electron classes are optional",
+  "policy": "Preserve native font/layout metrics; palette and edges bind to verified inner surfaces. Reject missing main/composer/body; do not patch official files."
 }

@@ -51,17 +51,25 @@
   function refresh() {
     scheduled=false;frame=0;if(stopped)return;
     const nextMain=query('main'),nextComposer=query('composer');
+    const nextFrame=nextComposer?.querySelector(CONFIG.adapter.selectors.composerFrame);
+    const markOverlays=()=>{for(const el of document.querySelectorAll('[role="menu"],[role="dialog"],[data-radix-popper-content-wrapper]'))mark(el,'overlay');};
     const settings=query('settings');
-    if(!nextMain||!nextComposer||settings||getComputedStyle(nextMain).position==='static') {
+    if(settings) {
+      setAttr(scene,'data-da-hidden','true');unmark();
+      setAttr(root,'data-dragon-atelier','active');setAttr(root,'data-da-mode',mode());
+      mark(query('sidebar'),'sidebar');mark(settings.closest('[data-settings-panel-slug]')||settings,'settings');markOverlays();
+      api.status={active:true,mode:mode(),characters:0,reason:'settings',edition:CONFIG.edition||'q',animated:false};return;
+    }
+    if(!nextMain||!nextComposer||!isVisible(nextFrame)||getComputedStyle(nextMain).position==='static') {
       setAttr(scene,'data-da-hidden','true');root.removeAttribute('data-dragon-atelier');unmark();
-      api.status={active:false,reason:settings?'settings':!nextMain||!nextComposer?'missing-anchors':'unpositioned-stage-host'};return;
+      api.status={active:false,reason:!nextMain||!nextComposer||!isVisible(nextFrame)?'missing-anchors':'unpositioned-stage-host'};return;
     }
     setAttr(root,'data-dragon-atelier','active');setAttr(root,'data-da-mode',mode());
     if(nextMain!==main||nextComposer!==composer){
       ro?.disconnect();main=nextMain;composer=nextComposer;
       ro=new ResizeObserver(schedule);ro.observe(main);ro.observe(composer);
     }
-    mark(main,'main');mark(query('sidebar'),'sidebar');mark(composer,'composer');
+    mark(main,'main');mark(query('sidebar'),'sidebar');mark(composer,'composer');mark(nextFrame,'composer-frame');
     // Like Maid Atelier, the owned stage is the first child of the chat surface.
     // No new native stacking context: existing popups retain their own tiers.
     if(scene.parentElement!==main||main.firstElementChild!==scene)main.prepend(scene);
@@ -69,26 +77,35 @@
       if(el!==scene&&getComputedStyle(el).position==='static')mark(el,'content');
     }
     for(const el of main.querySelectorAll('main:not([data-app-shell-main-surface]),.thread-scroll-container'))mark(el,'canvas');
-    for(const el of document.querySelectorAll('[role="menu"],[role="dialog"],[data-radix-popper-content-wrapper]'))mark(el,'overlay');
+    markOverlays();
     const box={width:main.clientWidth,height:main.clientHeight};
-    const home=Boolean(query('home'));
+    const homeNode=query('home'),home=Boolean(homeNode);
+    if(home)mark(homeNode.parentElement.querySelector('.heading-xl'),'welcome');
     setAttr(scene,'data-da-context',home?'home':'thread');
     // Large, quiet background figures scale with the chat surface, not viewport.
     // Active conversations retreat; narrow surfaces keep the reading space clear.
     const portrait=CONFIG.edition==='portrait';
-    const widths=portrait?[.94,.72].map((scale,i)=>Math.min(box.width*(i===0?.42:.26),box.height*(home?scale:scale*.66)*CONFIG.aspects[i])):
-      // The source frame is 192x208: cap enlargement rather than inventing detail.
-      [0,1].map(()=>Math.min(home?280:240,box.width*.34,box.height*(home?.60:.46)*192/208));
+    const hostRect=main.getBoundingClientRect(),composerRect=composer.getBoundingClientRect();
+    const readingFloor=Math.min(box.height-16,composerRect.top-hostRect.top-28);
+    // Natural adult-height difference; no exaggerated giant/small hierarchy.
+    const nativeCap=portrait?Math.min(...CONFIG.pixelHeights)/devicePixelRatio:Infinity;
+    const portraitHeight=portrait?Math.min(box.height*(home?.87:.66),box.width*.37/Math.max(...CONFIG.aspects),nativeCap):0;
+    const qWidth=Math.min(home?280:240,box.width*.32,box.height*(home?.60:.46)*CONFIG.cellAspect,Math.max(0,readingFloor-24)*CONFIG.cellAspect,CONFIG.cellPixels/devicePixelRatio);
+    const heights=portrait?[portraitHeight,portraitHeight*.94]:[qWidth/CONFIG.cellAspect,qWidth/CONFIG.cellAspect];
+    const widths=portrait?CONFIG.aspects.map((aspect,i)=>heights[i]*aspect):[qWidth,qWidth];
+    // Chibi faces sit along the chat's horizontal middle, wholly above input.
+    const tops=heights.map(height=>portrait?box.height-height-12:Math.max(24,Math.min((box.height-height)*.5,readingFloor-height)));
     const width=widths[0];
-    const visible=box.width>=700&&box.height>420;
+    const visible=box.width>=700&&box.height>420&&(portrait||qWidth>=72);
     setAttr(scene,'data-da-hidden',visible?'false':'true');
     chars.forEach((el,i)=>{
       const x=i===0?Math.max(8,box.width*.015):box.width-widths[i]-Math.max(8,box.width*.015);
-      el.style.width=`${widths[i]}px`;el.style.left=`${x}px`;
+      // Align to physical pixels so native-size sprite cells avoid subpixel blur.
+      el.style.width=`${widths[i]}px`;el.style.left=`${Math.round(x*devicePixelRatio)/devicePixelRatio}px`;el.style.top=`${Math.round(tops[i]*devicePixelRatio)/devicePixelRatio}px`;el.style.bottom='auto';
       ornaments[i].style.left=`${x+(widths[i]-110)/2}px`;
     });
     api.status={active:true,mode:mode(),context:home?'home':'thread',characters:visible?2:0,
-      reason:visible?'background-stage':'narrow-reading-surface',width,widths,edition:CONFIG.edition||'q',layer:'chat-background',animated:false};
+      reason:visible?'background-stage':'narrow-reading-surface',width,widths,edition:CONFIG.edition||'q',layer:'chat-background',animated:false,artwork:CONFIG.artwork,devicePixelRatio};
   }
   function schedule(){if(!scheduled&&!stopped){scheduled=true;frame=requestAnimationFrame(refresh);}}
   const observer=new MutationObserver(records=>{

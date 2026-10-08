@@ -95,5 +95,78 @@
         0
       ]
     }
-  ]
+  ],
+  "generatedPortraitSources": [
+    {
+      "file": "dragon-mature-generated-v1.png",
+      "sha256": "60293de719301afbcc2505db9ee124cd66b63506b8ee7fe3a88fed7697f1c05c",
+      "bytes": 2070535,
+      "size": [
+        941,
+        1672
+      ],
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "modified": true,
+      "creation": "imagegen reference-based derivative, 2026-10-08; no raster re-encoding",
+      "pose": "mature adult, left, open palm",
+      "referenceFiles": [
+        "dragon-portrait-original.jpg",
+        "dragon-portrait-orbit.png"
+      ],
+      "promptFile": "GENERATED_PROMPTS.md",
+      "attribution": [
+        "ZipZipPipe: original GPT character design",
+        "ApprenTice: referenced fan portrait",
+        "NoelCornel: generation direction and integration"
+      ],
+      "permission": "CC-BY-NC-SA-4.0 derivative conditions retained; underlying ZipZipPipe attribution and noncommercial character conditions also apply; no additional character rights claimed"
+    },
+    {
+      "file": "dragon-young-generated-v1.png",
+      "sha256": "8dd7a25de82e17dcdb9194dc0c1c6b2c1eb1f7ed1bc9e7cfb0a655b137693eeb",
+      "bytes": 1975139,
+      "size": [
+        941,
+        1672
+      ],
+      "alphaCorners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "modified": true,
+      "creation": "imagegen reference-based derivative, 2026-10-08; no raster re-encoding",
+      "pose": "young adult, right, notebook",
+      "referenceFiles": [
+        "dragon-portrait-original.jpg",
+        "dragon-mature-generated-v1.png"
+      ],
+      "promptFile": "GENERATED_PROMPTS.md",
+      "attribution": [
+        "ZipZipPipe: original GPT character design",
+        "ApprenTice: referenced fan portrait",
+        "NoelCornel: generation direction and integration"
+      ],
+      "permission": "CC-BY-NC-SA-4.0 derivative conditions retained; underlying ZipZipPipe attribution and noncommercial character conditions also apply; no additional character rights claimed"
+    }
+  ],
+  "currentChibiUse": {
+    "file": "dragon-spritesheet.webp",
+    "cellSize": [
+      192,
+      208
+    ],
+    "sheetSize": [
+      1536,
+      2288
+    ],
+    "reencoded": false,
+    "generationRejected": "Generated Q atlas was rejected by the user for appearance and edge quality; excluded from build and release. Original artwork is rendered without native-pixel upscaling."
+  }
 }

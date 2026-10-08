@@ -1,96 +1,50 @@
-html[data-dragon-atelier] {
-  --da-bg: #1b1c23; --da-panel: #26272f; --da-alt: #2b2c35;
-  --da-text: #dedde6; --da-muted: #aaa8b8; --da-accent: #b4a6ce;
-  --da-line: #53515f; --da-gold: #a89773;
-}
-html[data-dragon-atelier][data-da-mode=light] {
-  --da-bg: #e8e7ed; --da-panel: #f0eff3; --da-alt: #dedce5;
-  --da-text: #35333f; --da-muted: #625d70; --da-accent: #6f5888;
-  --da-line: #b0a8bc; --da-gold: #776346;
-}
-/* Palette is bound to stable semantic slots. Native fonts, geometry and status colors remain authoritative. */
-html[data-dragon-atelier] [data-da-part] {
-  --color-surface: var(--da-bg);
-  --color-surface-secondary: var(--da-panel);
-  --color-surface-tertiary: var(--da-alt);
-  --color-surface-elevated: var(--da-panel);
-  --color-surface-elevated-secondary: var(--da-alt);
-  --color-text: var(--da-text);
-  --color-text-primary: var(--da-text);
-  --color-text-secondary: var(--da-muted);
-  --color-text-tertiary:var(--da-muted);
-  --color-token-text-tertiary:var(--da-muted);
-  --color-token-bg-primary: var(--da-bg);
-  --color-token-text-primary: var(--da-text);
-  --color-token-text-secondary: var(--da-muted);
-  --app-color-background-surface: var(--da-bg);
-  --app-color-background-elevated-primary: var(--da-panel);
-  --app-color-background-editor-opaque: var(--da-panel);
-  --app-color-text-foreground: var(--da-text);
-  --app-color-text-foreground-secondary: var(--da-muted);
-}
+/* Palette declarations and verified native bindings are generated from JSON.
+   Native font metrics, window geometry and semantic status colors stay intact. */
+html[data-dragon-atelier] body {background-color:var(--da-background);color:var(--da-text);}
 html[data-dragon-atelier] [data-da-part=main] {
-  background-color: var(--da-bg) !important;
-  background-image: radial-gradient(ellipse at 20% 95%, color-mix(in srgb,var(--da-accent) 5%,transparent),transparent 42%);
+ background-color:var(--da-background) !important;
+ background-image:radial-gradient(ellipse at 14% 18%,var(--da-accentSubtle),transparent 55%),radial-gradient(ellipse at 95% 85%,color-mix(in srgb,var(--da-gold) 5%,transparent),transparent 48%);
+ box-shadow:inset 0 1px var(--da-subtleLine);
 }
-html[data-dragon-atelier] [data-da-part=sidebar] {
-  background-color:var(--da-bg) !important;
-  border-right-color:var(--da-line) !important;
-}
-html[data-dragon-atelier] [data-da-part=composer] {
-  background-color:var(--da-panel) !important;
-  border-radius:20px !important;
-  box-shadow:inset 0 0 0 1px var(--da-line),0 4px 18px rgb(0 0 0 / .08) !important;
-}
-html[data-dragon-atelier] [data-da-part=composer]:focus-within {box-shadow:inset 0 0 0 1px var(--da-accent),0 4px 18px rgb(0 0 0 / .08) !important;}
-html[data-dragon-atelier] [data-da-part=overlay] {background-color:var(--da-panel) !important;color:var(--da-text);}
+html[data-dragon-atelier] [data-da-part=sidebar] {background-color:var(--da-sidebar) !important;box-shadow:inset -1px 0 var(--da-subtleLine);}
+/* Native navigation locally redeclares --color-text as translucent accent.
+   Override that local alias, rather than assuming the root binding inherits. */
+html[data-dragon-atelier] [data-da-part=sidebar] nav {--color-text:var(--da-text) !important;--color-text-primary-ghost:var(--da-link) !important;--color-text-primary-ghost-hover:var(--da-linkHover) !important;}
+html[data-dragon-atelier] [data-da-part=composer] {background-color:transparent !important;box-shadow:none !important;}
+html[data-dragon-atelier] [data-da-part=composer-frame] {background-color:var(--da-composer) !important;box-shadow:inset 0 0 0 1px var(--da-controlBorder),0 4px 18px var(--da-shadowTint) !important;}
+html[data-dragon-atelier] [data-da-part=composer]:focus-within [data-da-part=composer-frame] {box-shadow:inset 0 0 0 2px var(--da-focus),0 4px 18px var(--da-shadowTint) !important;}
+html[data-dragon-atelier] [data-da-part=composer] [contenteditable] {color:var(--da-text);}
+html[data-dragon-atelier] [data-da-part=composer] [data-codex-composer]:focus-visible {outline:none;}
+html[data-dragon-atelier] [data-da-part=composer] p.placeholder[data-placeholder]::before {color:var(--da-placeholder) !important;opacity:1 !important;}
+html[data-dragon-atelier] :is([data-da-part=composer],[data-da-part=composer-frame]) {--color-text-tertiary:var(--da-muted) !important;}
+html[data-dragon-atelier] [data-da-part=welcome] {color:var(--da-text);background-color:var(--da-background);border-radius:10px;box-shadow:0 0 0 10px var(--da-background);}
+html[data-dragon-atelier] [data-da-part=composer] button.bg-composer-primary {box-shadow:inset 0 0 0 1px var(--da-purpleOutline),0 0 0 1px var(--da-controlBorder);}
+/* The live composer uses separate primary background and icon roles. */
+html[data-dragon-atelier] [data-da-part=composer] button.bg-composer-primary:not(:disabled):hover {background-color:var(--da-accentHover);}
+html[data-dragon-atelier] [data-da-part=composer] button.bg-composer-primary:not(:disabled):active {background-color:var(--da-accentActive);}
+html[data-dragon-atelier] [data-da-part=overlay] {background-color:var(--da-elevated) !important;color:var(--da-text);box-shadow:inset 0 0 0 1px var(--da-controlBorder),0 8px 28px var(--da-shadowTint);}
 html[data-dragon-atelier] [data-da-part=content] {position:relative;}
 html[data-dragon-atelier] [data-da-part=canvas] {background-color:transparent !important;}
-html[data-dragon-atelier] [data-da-part=main] :is([data-local-conversation-final-assistant],[data-message-author-role]) {
-  background-color:color-mix(in srgb,var(--da-bg) 94%,transparent);
-  border-radius:8px;
-}
+html[data-dragon-atelier] [data-da-part=main] :is([data-local-conversation-final-assistant],[data-message-author-role]) {background-color:var(--da-background);border-radius:8px;}
+html[data-dragon-atelier] ::selection {background-color:var(--da-selection);color:var(--da-text);}
+html[data-dragon-atelier] :is(input,textarea)::placeholder {color:var(--da-placeholder) !important;opacity:1 !important;}
+html[data-dragon-atelier] :is(button,a,input,textarea,[role=button]):focus-visible {outline:2px solid var(--da-focus);outline-offset:2px;}
+html[data-dragon-atelier] [data-da-part=main] pre {background-color:var(--da-code);box-shadow:inset 0 0 0 1px var(--da-subtleLine);}
 #dragon-atelier-scene {
-  position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none !important;
-  contain:strict; user-select:none;
-  background:radial-gradient(ellipse at 4% 100%,color-mix(in srgb,var(--da-accent) 9%,transparent),transparent 48%),radial-gradient(ellipse at 96% 100%,color-mix(in srgb,var(--da-gold) 6%,transparent),transparent 48%);
+ position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none !important;contain:strict;user-select:none;
+ background:radial-gradient(ellipse at 4% 72%,var(--da-accentSubtle),transparent 48%),radial-gradient(ellipse at 96% 72%,var(--da-goldSubtle),transparent 48%);
 }
 #dragon-atelier-scene * {pointer-events:none !important;}
-#dragon-atelier-scene::after {
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,transparent 20%,color-mix(in srgb,var(--da-bg) 50%,transparent) 40%,color-mix(in srgb,var(--da-bg) 50%,transparent) 60%,transparent 80%);
-}
-#dragon-atelier-scene .da-dragon {
-  position:absolute;bottom:12px;width:var(--da-character-width,400px);aspect-ratio:192/208;
-  background-repeat:no-repeat;background-size:800% 1100%;background-position:0 0;
-  --da-art-opacity:.48;--da-art-thread-opacity:.24;
-  filter:brightness(.82) saturate(.68);opacity:var(--da-art-opacity);
-}
-html[data-da-mode=light] #dragon-atelier-scene .da-dragon {filter:brightness(.88) saturate(.62);}
-#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;--da-art-opacity:.38;--da-art-thread-opacity:.16;filter:brightness(.78) saturate(.64);}
-html[data-da-mode=light] #dragon-atelier-scene .da-right {--da-art-thread-opacity:.18;filter:brightness(.90) saturate(.58);}
-/* Existing full-body illustrations with background-only alpha edits.
-   Both static figures belong behind native content, with an unequal scale. */
-#dragon-atelier-scene[data-da-edition=portrait] .da-dragon {
-  aspect-ratio:941/1672;background-size:100% 100%;background-position:center;
-  --da-art-opacity:.42;--da-art-thread-opacity:.22;
-  transform:none;filter:brightness(.88) saturate(.62);
-  mask-image:linear-gradient(0deg,transparent,#000 8%);
-}
-html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {--da-art-opacity:.45;--da-art-thread-opacity:.26;filter:brightness(.94) saturate(.56);}
-#dragon-atelier-scene[data-da-edition=portrait] .da-right {--da-art-opacity:.32;--da-art-thread-opacity:.14;filter:brightness(.84) saturate(.58);}
-html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-right {--da-art-opacity:.36;--da-art-thread-opacity:.18;filter:brightness(.92) saturate(.52);}
-#dragon-atelier-scene[data-da-edition=portrait] .da-left {aspect-ratio:937/1678;}
-#dragon-atelier-scene .da-ornament {
-  position:absolute;bottom:8px;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.3;
-}
-#dragon-atelier-scene .da-ornament::after {
-  content:'';position:absolute;width:5px;height:5px;left:53px;top:-2px;
-  border:1px solid var(--da-gold);transform:rotate(45deg);background:var(--da-bg);
-}
+#dragon-atelier-scene::after {content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 18%,color-mix(in srgb,var(--da-background) 18%,transparent) 38%,color-mix(in srgb,var(--da-background) 18%,transparent) 62%,transparent 82%);}
+#dragon-atelier-scene .da-dragon {position:absolute;width:var(--da-character-width,192px);aspect-ratio:192/208;background-repeat:no-repeat;background-size:800% 1100%;background-position:0 0;--da-art-opacity:.96;--da-art-thread-opacity:.78;image-rendering:auto;filter:none;opacity:var(--da-art-opacity);}
+
+#dragon-atelier-scene .da-right {transform:scaleX(-1);background-position:28.5714285714% 60%;}
+/* Adult companions: mature on the left, younger on the right; consistent rendering. */
+#dragon-atelier-scene[data-da-edition=portrait] .da-dragon {aspect-ratio:941/1672;background-size:100% 100%;background-position:center;--da-art-opacity:.96;--da-art-thread-opacity:.80;transform:none;filter:drop-shadow(0 1px 0 var(--da-characterOutline));mask-image:linear-gradient(0deg,transparent,#000 3%);}
+html[data-da-mode=light] #dragon-atelier-scene[data-da-edition=portrait] .da-dragon {--da-art-opacity:.96;--da-art-thread-opacity:.80;}
+#dragon-atelier-scene[data-da-edition=portrait] .da-left {aspect-ratio:941/1672;}
+#dragon-atelier-scene .da-ornament {position:absolute;bottom:8px;height:1px;width:110px;background:linear-gradient(90deg,transparent,var(--da-gold),transparent);opacity:.3;}
+#dragon-atelier-scene .da-ornament::after {content:'';position:absolute;width:5px;height:5px;left:53px;top:-2px;border:1px solid var(--da-gold);transform:rotate(45deg);background:var(--da-background);}
 #dragon-atelier-scene[data-da-context=thread] .da-dragon {opacity:var(--da-art-thread-opacity);}
 #dragon-atelier-scene[data-da-hidden=true] {visibility:hidden;}
-@media (prefers-reduced-motion:reduce) {
-  #dragon-atelier-scene * {transition:none !important;animation:none !important;}
-}
-@media (forced-colors:active) {#dragon-atelier-scene {display:none;}}
+@media (prefers-reduced-motion:reduce) {#dragon-atelier-scene * {transition:none !important;animation:none !important;}}
